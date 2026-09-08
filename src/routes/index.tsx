@@ -81,7 +81,7 @@ const lanches = [
 
 function Index() {
   return (
-    <div className="min-h-screen bg-dark font-body text-foreground selection:bg-brand-yellow selection:text-dark">
+    <div id="top" className="min-h-screen bg-dark font-body text-foreground selection:bg-brand-yellow selection:text-dark">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-dark/80 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-3">
