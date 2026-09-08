@@ -269,13 +269,38 @@ function Index() {
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-white/5 text-brand-yellow">
                   ⏰
                 </div>
-                <div>
-                  <h3 className="mb-1 font-bold">Horário de Funcionamento</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Terça a Domingo
-                    <br />
-                    Das 18:30 às 23:30
-                  </p>
+                <div className="w-full">
+                  <h3 className="mb-3 font-bold">Horário de Funcionamento</h3>
+                  <ul className="space-y-1.5 text-sm">
+                    <li className="flex justify-between border-b border-white/5 pb-1.5">
+                      <span className="text-muted-foreground">Segunda</span>
+                      <span className="font-bold text-brand-red">Fechado</span>
+                    </li>
+                    <li className="flex justify-between border-b border-white/5 pb-1.5">
+                      <span className="text-muted-foreground">Terça</span>
+                      <span className="font-bold">18:30 — 23:30</span>
+                    </li>
+                    <li className="flex justify-between border-b border-white/5 pb-1.5">
+                      <span className="text-muted-foreground">Quarta</span>
+                      <span className="font-bold">18:30 — 23:30</span>
+                    </li>
+                    <li className="flex justify-between border-b border-white/5 pb-1.5">
+                      <span className="text-muted-foreground">Quinta</span>
+                      <span className="font-bold">18:30 — 23:30</span>
+                    </li>
+                    <li className="flex justify-between border-b border-white/5 pb-1.5">
+                      <span className="text-muted-foreground">Sexta</span>
+                      <span className="font-bold">18:30 — 23:30</span>
+                    </li>
+                    <li className="flex justify-between border-b border-white/5 pb-1.5">
+                      <span className="text-muted-foreground">Sábado</span>
+                      <span className="font-bold">18:30 — 23:30</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="text-muted-foreground">Domingo</span>
+                      <span className="font-bold">18:30 — 23:30</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
               <div className="flex gap-4">
