@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import logoFerracini from "@/assets/logo-ferracini.png";
@@ -144,8 +144,44 @@ const lanches = [
   },
 ];
 
+type CartItem = { nome: string; preco: number; qtd: number };
+
+const parsePreco = (p: string) => Number(p.replace("R$", "").replace(".", "").replace(",", ".").trim());
+
+const brl = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
 function Index() {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const addItem = (nome: string, preco: string) => {
+    setCart((prev) => {
+      const found = prev.find((i) => i.nome === nome);
+      if (found) {
+        return prev.map((i) => (i.nome === nome ? { ...i, qtd: i.qtd + 1 } : i));
+      }
+      return [...prev, { nome, preco: parsePreco(preco), qtd: 1 }];
+    });
+    setCartOpen(true);
+  };
+
+  const changeQtd = (nome: string, delta: number) => {
+    setCart((prev) =>
+      prev
+        .map((i) => (i.nome === nome ? { ...i, qtd: i.qtd + delta } : i))
+        .filter((i) => i.qtd > 0),
+    );
+  };
+
+  const removeItem = (nome: string) => {
+    setCart((prev) => prev.filter((i) => i.nome !== nome));
+  };
+
+  const totalItens = cart.reduce((s, i) => s + i.qtd, 0);
+  const total = cart.reduce((s, i) => s + i.qtd * i.preco, 0);
+
 
   const scrollByCard = (dir: 1 | -1) => {
     const el = carouselRef.current;
@@ -312,14 +348,13 @@ function Index() {
                     <span className="font-black text-brand-yellow">{item.preco}</span>
                   </div>
                   <p className="mb-6 text-sm text-muted-foreground">{item.desc}</p>
-                  <a
-                    href={INSTAGRAM}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block w-full rounded-xl border border-white/10 py-3 text-center text-xs font-bold uppercase tracking-widest transition-all group-hover:bg-foreground group-hover:text-dark"
+                  <button
+                    type="button"
+                    onClick={() => addItem(item.nome, item.preco)}
+                    className="block w-full rounded-xl border border-white/10 py-3 text-center text-xs font-bold uppercase tracking-widest transition-all hover:bg-brand-yellow hover:text-dark group-hover:bg-foreground group-hover:text-dark"
                   >
-                    Pedir este
-                  </a>
+                    Adicionar ao carrinho
+                  </button>
                 </div>
               </div>
             ))}
@@ -435,6 +470,122 @@ function Index() {
           </a>
         </div>
       </footer>
+
+      {!cartOpen && (
+        <button
+          type="button"
+          onClick={() => setCartOpen(true)}
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full bg-brand-red px-6 py-4 text-sm font-black uppercase tracking-tight shadow-2xl transition-transform hover:scale-105"
+        >
+          🛒 Carrinho
+          {totalItens > 0 && (
+            <span className="flex size-6 items-center justify-center rounded-full bg-brand-yellow text-xs font-black text-dark">
+              {totalItens}
+            </span>
+          )}
+        </button>
+      )}
+
+      {cartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <button
+            type="button"
+            aria-label="Fechar carrinho"
+            onClick={() => setCartOpen(false)}
+            className="absolute inset-0 bg-dark/70 backdrop-blur-sm"
+          />
+          <aside className="relative flex h-full w-full max-w-md flex-col border-l border-white/10 bg-surface">
+            <div className="flex items-center justify-between border-b border-white/10 p-6">
+              <h2 className="font-display text-2xl uppercase">Seu Pedido</h2>
+              <button
+                type="button"
+                onClick={() => setCartOpen(false)}
+                aria-label="Fechar"
+                className="flex size-10 items-center justify-center rounded-full border border-white/15 text-lg transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 space-y-4 overflow-y-auto p-6">
+              {cart.length === 0 ? (
+                <p className="mt-10 text-center text-sm text-muted-foreground">
+                  Seu carrinho está vazio. Escolha um lanche no cardápio! 🍔
+                </p>
+              ) : (
+                cart.map((item) => (
+                  <div
+                    key={item.nome}
+                    className="rounded-2xl border border-white/5 bg-dark p-4"
+                  >
+                    <div className="mb-3 flex items-start justify-between gap-3">
+                      <h3 className="font-bold">{item.nome}</h3>
+                      <button
+                        type="button"
+                        onClick={() => removeItem(item.nome)}
+                        aria-label={`Excluir ${item.nome}`}
+                        className="text-sm text-muted-foreground transition-colors hover:text-brand-red"
+                      >
+                        🗑 Excluir
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => changeQtd(item.nome, -1)}
+                          aria-label={`Diminuir ${item.nome}`}
+                          className="flex size-9 items-center justify-center rounded-full border border-white/15 text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center font-black">{item.qtd}</span>
+                        <button
+                          type="button"
+                          onClick={() => changeQtd(item.nome, 1)}
+                          aria-label={`Aumentar ${item.nome}`}
+                          className="flex size-9 items-center justify-center rounded-full border border-white/15 text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <span className="font-black text-brand-yellow">
+                        {brl(item.qtd * item.preco)}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="space-y-4 border-t border-white/10 p-6">
+              <div className="flex items-center justify-between text-lg">
+                <span className="font-bold uppercase tracking-widest">Total</span>
+                <span className="font-display text-3xl text-brand-yellow">{brl(total)}</span>
+              </div>
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noreferrer"
+                className={`block rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${
+                  cart.length === 0 ? "pointer-events-none opacity-40" : ""
+                }`}
+              >
+                Enviar pedido pelo Instagram
+              </a>
+              {cart.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setCart([])}
+                  className="w-full text-xs font-bold uppercase tracking-widest text-muted-foreground transition-colors hover:text-brand-red"
+                >
+                  Limpar carrinho
+                </button>
+              )}
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
