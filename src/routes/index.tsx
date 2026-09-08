@@ -194,14 +194,14 @@ function Index() {
   return (
     <div id="top" className="min-h-screen bg-dark font-body text-foreground selection:bg-brand-yellow selection:text-dark">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-dark/80 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-3">
             <img
               src={logoFerracini}
               alt="Ferracini Lanches"
-              width={48}
-              height={48}
-              className="size-12 object-contain"
+              width={80}
+              height={80}
+              className="h-20 w-20 object-contain"
             />
             <span className="font-display text-2xl uppercase tracking-tight">
               Ferracini <span className="text-brand-yellow">Lanches</span>
@@ -219,9 +219,7 @@ function Index() {
             </a>
           </div>
           <a
-            href={INSTAGRAM}
-            target="_blank"
-            rel="noreferrer"
+            href="#cardapio"
             className="rounded-full bg-brand-yellow px-6 py-2 text-xs font-black uppercase tracking-tighter text-dark transition-transform hover:scale-105"
           >
             Pedir Agora
@@ -400,32 +398,8 @@ function Index() {
                 <div className="w-full">
                   <h3 className="mb-3 font-bold">Horário de Funcionamento</h3>
                   <ul className="space-y-1.5 text-sm">
-                    <li className="flex justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-muted-foreground">Segunda</span>
-                      <span className="font-bold text-brand-red">Fechado</span>
-                    </li>
-                    <li className="flex justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-muted-foreground">Terça</span>
-                      <span className="font-bold">18:30 — 23:30</span>
-                    </li>
-                    <li className="flex justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-muted-foreground">Quarta</span>
-                      <span className="font-bold">18:30 — 23:30</span>
-                    </li>
-                    <li className="flex justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-muted-foreground">Quinta</span>
-                      <span className="font-bold">18:30 — 23:30</span>
-                    </li>
-                    <li className="flex justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-muted-foreground">Sexta</span>
-                      <span className="font-bold">18:30 — 23:30</span>
-                    </li>
-                    <li className="flex justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-muted-foreground">Sábado</span>
-                      <span className="font-bold">18:30 — 23:30</span>
-                    </li>
                     <li className="flex justify-between">
-                      <span className="text-muted-foreground">Domingo</span>
+                      <span className="text-muted-foreground">Segunda a Domingo</span>
                       <span className="font-bold">18:30 — 23:30</span>
                     </li>
                   </ul>
@@ -563,16 +537,17 @@ function Index() {
                 <span className="font-bold uppercase tracking-widest">Total</span>
                 <span className="font-display text-3xl text-brand-yellow">{brl(total)}</span>
               </div>
-              <a
-                href={INSTAGRAM}
-                target="_blank"
-                rel="noreferrer"
-                className={`block rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${
-                  cart.length === 0 ? "pointer-events-none opacity-40" : ""
-                }`}
+              <button
+                type="button"
+                onClick={() => {
+                  // Aqui você integrará o Mercado Pago no futuro
+                  alert("Redirecionando para o pagamento...");
+                }}
+                className={`w-full rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${cart.length === 0 ? "pointer-events-none opacity-40" : ""
+                  }`}
               >
-                Enviar pedido pelo Instagram
-              </a>
+                Finalizar pedido
+              </button>
               {cart.length > 0 && (
                 <button
                   type="button"
