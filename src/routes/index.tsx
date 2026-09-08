@@ -9,6 +9,14 @@ import xCalabresa from "@/assets/x-calabresa.jpg";
 import prensado from "@/assets/prensado.jpg";
 import xFrango from "@/assets/x-frango.jpg";
 import trailerAzul from "@/assets/trailer-azul.jpg";
+import dogaoSimples from "@/assets/dogao-simples.jpg";
+import dogaoDuplo from "@/assets/dogao-duplo.jpg";
+import xSalada from "@/assets/x-salada.jpg";
+import xBacon from "@/assets/x-bacon.jpg";
+import xEgg from "@/assets/x-egg.jpg";
+import dogaoCalabresa from "@/assets/dogao-calabresa.jpg";
+import xTudoDuplo from "@/assets/x-tudo-duplo.jpg";
+import mistoQuente from "@/assets/misto-quente.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -75,6 +83,62 @@ const lanches = [
     preco: "R$ 25,00",
     img: batataCheddar,
     desc: "400g de batata frita sequinha coberta com cheddar cremoso e cubos de bacon crocante.",
+    hover: "hover:border-brand-blue/40",
+  },
+  {
+    nome: "Dogão Simples",
+    preco: "R$ 12,00",
+    img: dogaoSimples,
+    desc: "Duas salsichas, purê de batata, milho, ervilha, batata palha e molho da casa. O dogão de início.",
+    hover: "hover:border-brand-yellow/40",
+  },
+  {
+    nome: "Dogão Duplo",
+    preco: "R$ 22,00",
+    img: dogaoDuplo,
+    desc: "Quatro salsichas, purê, milho, ervilha, batata palha, queijo derretido e molho especial. Pra quem tá com fome boa.",
+    hover: "hover:border-brand-red/40",
+  },
+  {
+    nome: "Dogão com Calabresa",
+    preco: "R$ 24,00",
+    img: dogaoCalabresa,
+    desc: "Salsicha, calabresa fatiada na chapa, queijo, cebola dourada, milho e batata palha. O melhor de dois mundos.",
+    hover: "hover:border-brand-blue/40",
+  },
+  {
+    nome: "X-Salada",
+    preco: "R$ 16,00",
+    img: xSalada,
+    desc: "Hambúrguer 120g, queijo derretido, alface, tomate e maionese da casa no pão de gergelim.",
+    hover: "hover:border-brand-green/40",
+  },
+  {
+    nome: "X-Bacon",
+    preco: "R$ 20,00",
+    img: xBacon,
+    desc: "Hambúrguer 120g, bacon crocante, queijo, alface e tomate. O clássico com toque defumado.",
+    hover: "hover:border-brand-red/40",
+  },
+  {
+    nome: "X-Egg",
+    preco: "R$ 15,00",
+    img: xEgg,
+    desc: "Hambúrguer, ovo na chapa, presunto e queijo derretido no pão de gergelim. Simples e completo.",
+    hover: "hover:border-brand-yellow/40",
+  },
+  {
+    nome: "X-Tudo Duplo",
+    preco: "R$ 38,00",
+    img: xTudoDuplo,
+    desc: "Dois hambúrgueres, presunto, dois ovos, bacon, queijo duplo, alface, tomate e batata palha. O monstro da casa.",
+    hover: "hover:border-brand-red/40",
+  },
+  {
+    nome: "Misto Quente",
+    preco: "R$ 10,00",
+    img: mistoQuente,
+    desc: "Pão na chapa com presunto e muito queijo derretido. O lanche rápido e barato do dia a dia.",
     hover: "hover:border-brand-blue/40",
   },
 ];
