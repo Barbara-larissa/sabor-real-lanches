@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import logoFerracini from "@/assets/logo-ferracini.png";
@@ -144,6 +145,16 @@ const lanches = [
 ];
 
 function Index() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const amount = card ? card.offsetWidth + 32 : el.clientWidth * 0.8;
+    el.scrollBy({ left: amount * dir, behavior: "smooth" });
+  };
+
   return (
     <div id="top" className="min-h-screen bg-dark font-body text-foreground selection:bg-brand-yellow selection:text-dark">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-dark/80 backdrop-blur-md">
@@ -183,21 +194,6 @@ function Index() {
       </nav>
 
       <header className="relative px-6 pt-32 pb-20">
-        <div id="horario" className="mx-auto mb-8 max-w-7xl px-6">
-          <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4 backdrop-blur-sm">
-            <div className="flex items-center gap-2 rounded-full bg-brand-green/20 px-4 py-2">
-              <span className="size-2 animate-pulse rounded-full bg-brand-green" />
-              <span className="text-xs font-black uppercase tracking-widest text-brand-green">
-                Aberto Agora
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
-              <span className="font-bold">⏰ Terça a Domingo</span>
-              <span className="text-muted-foreground">Das 18:30 às 23:30</span>
-              <span className="text-muted-foreground">• Segunda: Fechado</span>
-            </div>
-          </div>
-        </div>
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
           <div>
             <span className="mb-6 inline-block rounded border border-brand-blue/30 bg-brand-blue/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-blue">
@@ -261,11 +257,44 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <div>
+              <h3 className="mb-1 text-sm font-black uppercase tracking-widest text-brand-yellow">
+                Arraste para ver mais
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                {lanches.length} lanches no cardápio
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => scrollByCard(-1)}
+                aria-label="Lanche anterior"
+                className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-dark text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCard(1)}
+                aria-label="Próximo lanche"
+                className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-dark text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          <div
+            ref={carouselRef}
+            className="-mx-6 flex snap-x snap-mandatory gap-8 overflow-x-auto px-6 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
             {lanches.map((item) => (
               <div
                 key={item.nome}
-                className={`group rounded-3xl border border-white/5 bg-dark p-4 transition-all ${item.hover}`}
+                data-card
+                className={`group w-[80vw] max-w-sm shrink-0 snap-center rounded-3xl border border-white/5 bg-dark p-4 transition-all sm:w-[60vw] md:w-[calc((100%-4rem)/3)] ${item.hover}`}
               >
                 <div className="mb-6 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
                   <img
