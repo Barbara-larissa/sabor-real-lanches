@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import logoFerracini from "@/assets/logo-ferracini.png";
 import heroXtudo from "@/assets/hero-xtudo.jpg";
 import dogao from "@/assets/dogao.jpg";
 import xFerracini from "@/assets/x-ferracini.jpg";
@@ -83,14 +84,18 @@ function Index() {
     <div className="min-h-screen bg-dark font-body text-foreground selection:bg-brand-yellow selection:text-dark">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-dark/80 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-          <div className="flex items-center gap-2">
-            <div className="flex size-10 items-center justify-center rounded-full bg-brand-red">
-              <span className="font-display text-xl italic">F</span>
-            </div>
+          <a href="#top" className="flex items-center gap-3">
+            <img
+              src={logoFerracini}
+              alt="Ferracini Lanches"
+              width={48}
+              height={48}
+              className="size-12 object-contain"
+            />
             <span className="font-display text-2xl uppercase tracking-tight">
               Ferracini <span className="text-brand-yellow">Lanches</span>
             </span>
-          </div>
+          </a>
           <div className="hidden gap-8 text-sm font-bold uppercase tracking-widest md:flex">
             <a href="#cardapio" className="transition-colors hover:text-brand-yellow">
               Cardápio
