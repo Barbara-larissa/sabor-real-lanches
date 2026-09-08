@@ -144,8 +144,44 @@ const lanches = [
   },
 ];
 
+type CartItem = { nome: string; preco: number; qtd: number };
+
+const parsePreco = (p: string) => Number(p.replace("R$", "").replace(".", "").replace(",", ".").trim());
+
+const brl = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
 function Index() {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const addItem = (nome: string, preco: string) => {
+    setCart((prev) => {
+      const found = prev.find((i) => i.nome === nome);
+      if (found) {
+        return prev.map((i) => (i.nome === nome ? { ...i, qtd: i.qtd + 1 } : i));
+      }
+      return [...prev, { nome, preco: parsePreco(preco), qtd: 1 }];
+    });
+    setCartOpen(true);
+  };
+
+  const changeQtd = (nome: string, delta: number) => {
+    setCart((prev) =>
+      prev
+        .map((i) => (i.nome === nome ? { ...i, qtd: i.qtd + delta } : i))
+        .filter((i) => i.qtd > 0),
+    );
+  };
+
+  const removeItem = (nome: string) => {
+    setCart((prev) => prev.filter((i) => i.nome !== nome));
+  };
+
+  const totalItens = cart.reduce((s, i) => s + i.qtd, 0);
+  const total = cart.reduce((s, i) => s + i.qtd * i.preco, 0);
+
 
   const scrollByCard = (dir: 1 | -1) => {
     const el = carouselRef.current;
