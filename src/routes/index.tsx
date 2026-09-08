@@ -348,14 +348,13 @@ function Index() {
                     <span className="font-black text-brand-yellow">{item.preco}</span>
                   </div>
                   <p className="mb-6 text-sm text-muted-foreground">{item.desc}</p>
-                  <a
-                    href={INSTAGRAM}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block w-full rounded-xl border border-white/10 py-3 text-center text-xs font-bold uppercase tracking-widest transition-all group-hover:bg-foreground group-hover:text-dark"
+                  <button
+                    type="button"
+                    onClick={() => addItem(item.nome, item.preco)}
+                    className="block w-full rounded-xl border border-white/10 py-3 text-center text-xs font-bold uppercase tracking-widest transition-all hover:bg-brand-yellow hover:text-dark group-hover:bg-foreground group-hover:text-dark"
                   >
-                    Pedir este
-                  </a>
+                    Adicionar ao carrinho
+                  </button>
                 </div>
               </div>
             ))}
