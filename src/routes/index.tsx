@@ -184,21 +184,6 @@ function Index() {
       </nav>
 
       <header className="relative px-6 pt-32 pb-20">
-        <div id="horario" className="mx-auto mb-8 max-w-7xl px-6">
-          <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-white/10 bg-surface/60 p-4 backdrop-blur-sm">
-            <div className="flex items-center gap-2 rounded-full bg-brand-green/20 px-4 py-2">
-              <span className="size-2 animate-pulse rounded-full bg-brand-green" />
-              <span className="text-xs font-black uppercase tracking-widest text-brand-green">
-                Aberto Agora
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
-              <span className="font-bold">⏰ Terça a Domingo</span>
-              <span className="text-muted-foreground">Das 18:30 às 23:30</span>
-              <span className="text-muted-foreground">• Segunda: Fechado</span>
-            </div>
-          </div>
-        </div>
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
           <div>
             <span className="mb-6 inline-block rounded border border-brand-blue/30 bg-brand-blue/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-blue">
