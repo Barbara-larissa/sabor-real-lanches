@@ -257,11 +257,44 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <div>
+              <h3 className="mb-1 text-sm font-black uppercase tracking-widest text-brand-yellow">
+                Arraste para ver mais
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                {lanches.length} lanches no cardápio
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => scrollByCard(-1)}
+                aria-label="Lanche anterior"
+                className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-dark text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCard(1)}
+                aria-label="Próximo lanche"
+                className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-dark text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          <div
+            ref={carouselRef}
+            className="-mx-6 flex snap-x snap-mandatory gap-8 overflow-x-auto px-6 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
             {lanches.map((item) => (
               <div
                 key={item.nome}
-                className={`group rounded-3xl border border-white/5 bg-dark p-4 transition-all ${item.hover}`}
+                data-card
+                className={`group w-[80vw] max-w-sm shrink-0 snap-center rounded-3xl border border-white/5 bg-dark p-4 transition-all sm:w-[60vw] md:w-[calc((100%-4rem)/3)] ${item.hover}`}
               >
                 <div className="mb-6 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
                   <img
