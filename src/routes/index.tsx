@@ -145,6 +145,16 @@ const lanches = [
 ];
 
 function Index() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const amount = card ? card.offsetWidth + 32 : el.clientWidth * 0.8;
+    el.scrollBy({ left: amount * dir, behavior: "smooth" });
+  };
+
   return (
     <div id="top" className="min-h-screen bg-dark font-body text-foreground selection:bg-brand-yellow selection:text-dark">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-dark/80 backdrop-blur-md">
