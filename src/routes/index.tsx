@@ -169,6 +169,19 @@ function Index() {
             <p className="text-muted-foreground">Os favoritos da galera do Jardim Paraíso</p>
           </div>
 
+          <div className="mb-10 flex items-start gap-4 rounded-2xl border border-brand-yellow/30 bg-brand-yellow/10 p-5">
+            <span className="text-2xl">⚠️</span>
+            <div>
+              <h3 className="mb-1 text-sm font-black uppercase tracking-widest text-brand-yellow">
+                Observação importante
+              </h3>
+              <p className="text-sm leading-relaxed text-foreground">
+                Não cortamos o lanche ao meio. Não retiramos nenhum ingrediente — só
+                acrescentamos. Na hora de pedir, pense no adicional, não no que tirar. 🔥
+              </p>
+            </div>
+          </div>
+
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {lanches.map((item) => (
               <div
