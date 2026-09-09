@@ -194,6 +194,53 @@ function Index() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [enderecoOpen, setEnderecoOpen] = useState(false);
+  const [endereco, setEndereco] = useState<Endereco>(enderecoVazio);
+  const [erros, setErros] = useState<Partial<Record<keyof Endereco, string>>>({});
+  const [entrega, setEntrega] = useState<{
+    taxa: number;
+    tempo: string;
+    resumo: string;
+  } | null>(null);
+  const [calculando, setCalculando] = useState(false);
+
+  const setCampo = (campo: keyof Endereco, valor: string) => {
+    setEndereco((prev) => ({ ...prev, [campo]: valor }));
+    setErros((prev) => ({ ...prev, [campo]: undefined }));
+    setEntrega(null);
+  };
+
+  const validarEndereco = () => {
+    const e: Partial<Record<keyof Endereco, string>> = {};
+    if (endereco.nome.trim().length < 3) e.nome = "Informe seu nome completo";
+    if (endereco.telefone.replace(/\D/g, "").length < 10)
+      e.telefone = "Telefone inválido";
+    if (endereco.cep.replace(/\D/g, "").length !== 8) e.cep = "CEP deve ter 8 dígitos";
+    if (!endereco.rua.trim()) e.rua = "Informe a rua";
+    if (!endereco.numero.trim()) e.numero = "Informe o número";
+    if (!endereco.bairro.trim()) e.bairro = "Informe o bairro";
+    if (!endereco.cidade.trim()) e.cidade = "Informe a cidade";
+    if (endereco.estado.trim().length !== 2) e.estado = "Use a sigla (ex: PR)";
+    setErros(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const calcularTaxa = () => {
+    if (!validarEndereco()) return;
+    setCalculando(true);
+    setTimeout(() => {
+      const digitos = endereco.cep.replace(/\D/g, "");
+      const base = Number(digitos.slice(-2)) || 0;
+      const taxa = 5 + (base % 8);
+      const minutos = 30 + (base % 4) * 5;
+      setEntrega({
+        taxa,
+        tempo: `${minutos} a ${minutos + 15} minutos`,
+        resumo: `${endereco.rua}, ${endereco.numero}${endereco.complemento ? ` — ${endereco.complemento}` : ""} — ${endereco.bairro}, ${endereco.cidade}/${endereco.estado.toUpperCase()} — CEP ${endereco.cep}`,
+      });
+      setCalculando(false);
+    }, 700);
+  };
 
   const addItem = (nome: string, preco: string) => {
     setCart((prev) => {
