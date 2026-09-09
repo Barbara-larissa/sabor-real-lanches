@@ -146,6 +146,45 @@ const lanches = [
 
 type CartItem = { nome: string; preco: number; qtd: number };
 
+type Endereco = {
+  nome: string;
+  telefone: string;
+  cep: string;
+  rua: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+};
+
+const enderecoVazio: Endereco = {
+  nome: "",
+  telefone: "",
+  cep: "",
+  rua: "",
+  numero: "",
+  complemento: "",
+  bairro: "",
+  cidade: "Londrina",
+  estado: "PR",
+};
+
+const maskTelefone = (v: string) => {
+  const d = v.replace(/\D/g, "").slice(0, 11);
+  if (d.length <= 10) {
+    return d
+      .replace(/^(\d{0,2})/, "($1")
+      .replace(/^\((\d{2})(\d{1,4})/, "($1) $2")
+      .replace(/^\((\d{2})\) (\d{4})(\d{1,4})/, "($1) $2-$3");
+  }
+  return d
+    .replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+};
+
+const maskCep = (v: string) =>
+  v.replace(/\D/g, "").slice(0, 8).replace(/^(\d{5})(\d{1,3})/, "$1-$2");
+
 const parsePreco = (p: string) => Number(p.replace("R$", "").replace(".", "").replace(",", ".").trim());
 
 const brl = (v: number) =>
