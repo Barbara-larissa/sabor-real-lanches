@@ -685,6 +685,117 @@ function Index() {
           </aside>
         </div>
       )}
+
+      {enderecoOpen && (
+        <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center">
+          <button
+            type="button"
+            aria-label="Fechar endereço"
+            onClick={() => setEnderecoOpen(false)}
+            className="absolute inset-0 bg-dark/80 backdrop-blur-sm"
+          />
+          <div className="relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-white/10 bg-surface p-6 sm:rounded-3xl">
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-display text-2xl uppercase">Endereço de entrega</h2>
+                <p className="text-xs text-muted-foreground">
+                  Preencha os dados para calcularmos a taxa
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEnderecoOpen(false)}
+                aria-label="Fechar"
+                className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/15 text-lg transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {([
+                { campo: "nome", label: "Nome *", span: 2, ph: "Seu nome completo" },
+                { campo: "telefone", label: "Telefone *", span: 1, ph: "(43) 99999-9999" },
+                { campo: "cep", label: "CEP *", span: 1, ph: "86000-000" },
+                { campo: "rua", label: "Rua *", span: 2, ph: "Rua Pelicano" },
+                { campo: "numero", label: "Número *", span: 1, ph: "163" },
+                { campo: "complemento", label: "Complemento", span: 1, ph: "Apto, bloco..." },
+                { campo: "bairro", label: "Bairro *", span: 2, ph: "Jardim Paraíso" },
+                { campo: "cidade", label: "Cidade *", span: 1, ph: "Londrina" },
+                { campo: "estado", label: "Estado *", span: 1, ph: "PR" },
+              ] as const).map((f) => (
+                <div key={f.campo} className={f.span === 2 ? "col-span-2" : "col-span-1"}>
+                  <label
+                    htmlFor={`end-${f.campo}`}
+                    className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-muted-foreground"
+                  >
+                    {f.label}
+                  </label>
+                  <input
+                    id={`end-${f.campo}`}
+                    value={endereco[f.campo]}
+                    placeholder={f.ph}
+                    maxLength={f.campo === "estado" ? 2 : 120}
+                    inputMode={
+                      f.campo === "telefone" || f.campo === "cep" || f.campo === "numero"
+                        ? "numeric"
+                        : "text"
+                    }
+                    onChange={(ev) => {
+                      const v = ev.target.value;
+                      if (f.campo === "telefone") setCampo("telefone", maskTelefone(v));
+                      else if (f.campo === "cep") setCampo("cep", maskCep(v));
+                      else setCampo(f.campo, v);
+                    }}
+                    className={`w-full rounded-xl border bg-dark px-4 py-3 text-sm outline-none transition-colors focus:border-brand-yellow ${erros[f.campo] ? "border-brand-red" : "border-white/10"
+                      }`}
+                  />
+                  {erros[f.campo] && (
+                    <p className="mt-1 text-xs font-bold text-brand-red">{erros[f.campo]}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={calcularTaxa}
+              disabled={calculando}
+              className="mt-6 w-full rounded-xl bg-brand-blue py-4 text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-blue/90 disabled:opacity-60"
+            >
+              {calculando ? "Calculando..." : "Calcular taxa de entrega"}
+            </button>
+
+            {entrega && (
+              <div className="mt-5 space-y-3 rounded-2xl border border-brand-green/30 bg-brand-green/10 p-5">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Taxa de entrega</span>
+                  <span className="font-black text-brand-yellow">{brl(entrega.taxa)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Tempo estimado</span>
+                  <span className="font-bold">{entrega.tempo}</span>
+                </div>
+                <div className="border-t border-white/10 pt-3 text-sm">
+                  <p className="mb-1 font-bold text-brand-green">✅ Endereço confirmado</p>
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    {endereco.nome} • {endereco.telefone}
+                    <br />
+                    {entrega.resumo}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEnderecoOpen(false)}
+                  className="w-full rounded-xl bg-brand-yellow py-3.5 text-sm font-black uppercase tracking-tight text-dark transition-transform hover:scale-[1.02]"
+                >
+                  Usar este endereço
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
