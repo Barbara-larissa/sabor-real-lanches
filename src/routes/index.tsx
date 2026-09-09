@@ -202,7 +202,8 @@ const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 function Index() {
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const lanchesRef = useRef<HTMLDivElement>(null);
+  const dogsRef = useRef<HTMLDivElement>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [enderecoOpen, setEnderecoOpen] = useState(false);
