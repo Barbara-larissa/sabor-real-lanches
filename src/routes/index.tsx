@@ -201,6 +201,91 @@ const parsePreco = (p: string) => Number(p.replace("R$", "").replace(".", "").re
 const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
+function Carousel({
+  titulo,
+  subtitulo,
+  itens,
+  carouselRef,
+  onScroll,
+  onAdd,
+}: {
+  titulo: string;
+  subtitulo: string;
+  itens: Lanche[];
+  carouselRef: React.RefObject<HTMLDivElement | null>;
+  onScroll: (ref: React.RefObject<HTMLDivElement | null>, dir: 1 | -1) => void;
+  onAdd: (nome: string, preco: string) => void;
+}) {
+  return (
+    <>
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <div>
+          <h3 className="mb-1 text-sm font-black uppercase tracking-widest text-brand-yellow">
+            {titulo}
+          </h3>
+          <p className="text-xs text-muted-foreground">{subtitulo}</p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => onScroll(carouselRef, -1)}
+            aria-label={`${titulo} anterior`}
+            className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-dark text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={() => onScroll(carouselRef, 1)}
+            aria-label={`Próximo ${titulo.toLowerCase()}`}
+            className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-dark text-lg font-bold transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+          >
+            →
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={carouselRef}
+        className="-mx-6 mb-12 flex snap-x snap-mandatory gap-8 overflow-x-auto px-6 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {itens.map((item) => (
+          <div
+            key={item.nome}
+            data-card
+            className={`group w-[80vw] max-w-sm shrink-0 snap-center rounded-3xl border border-white/5 bg-dark p-4 transition-all sm:w-[60vw] md:w-[calc((100%-4rem)/3)] ${item.hover}`}
+          >
+            <div className="mb-6 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
+              <img
+                src={item.img}
+                alt={item.nome}
+                loading="lazy"
+                width={1024}
+                height={768}
+                className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div className="px-2">
+              <div className="mb-2 flex items-start justify-between gap-4">
+                <h3 className="text-xl font-bold">{item.nome}</h3>
+                <span className="font-black text-brand-yellow">{item.preco}</span>
+              </div>
+              <p className="mb-6 text-sm text-muted-foreground">{item.desc}</p>
+              <button
+                type="button"
+                onClick={() => onAdd(item.nome, item.preco)}
+                className="block w-full rounded-xl border border-white/10 py-3 text-center text-xs font-bold uppercase tracking-widest transition-all hover:bg-brand-yellow hover:text-dark group-hover:bg-foreground group-hover:text-dark"
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 function Index() {
   const lanchesRef = useRef<HTMLDivElement>(null);
   const dogsRef = useRef<HTMLDivElement>(null);
