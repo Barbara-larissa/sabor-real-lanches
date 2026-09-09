@@ -146,6 +146,45 @@ const lanches = [
 
 type CartItem = { nome: string; preco: number; qtd: number };
 
+type Endereco = {
+  nome: string;
+  telefone: string;
+  cep: string;
+  rua: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+};
+
+const enderecoVazio: Endereco = {
+  nome: "",
+  telefone: "",
+  cep: "",
+  rua: "",
+  numero: "",
+  complemento: "",
+  bairro: "",
+  cidade: "Londrina",
+  estado: "PR",
+};
+
+const maskTelefone = (v: string) => {
+  const d = v.replace(/\D/g, "").slice(0, 11);
+  if (d.length <= 10) {
+    return d
+      .replace(/^(\d{0,2})/, "($1")
+      .replace(/^\((\d{2})(\d{1,4})/, "($1) $2")
+      .replace(/^\((\d{2})\) (\d{4})(\d{1,4})/, "($1) $2-$3");
+  }
+  return d
+    .replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+};
+
+const maskCep = (v: string) =>
+  v.replace(/\D/g, "").slice(0, 8).replace(/^(\d{5})(\d{1,3})/, "$1-$2");
+
 const parsePreco = (p: string) => Number(p.replace("R$", "").replace(".", "").replace(",", ".").trim());
 
 const brl = (v: number) =>
@@ -155,6 +194,53 @@ function Index() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [enderecoOpen, setEnderecoOpen] = useState(false);
+  const [endereco, setEndereco] = useState<Endereco>(enderecoVazio);
+  const [erros, setErros] = useState<Partial<Record<keyof Endereco, string>>>({});
+  const [entrega, setEntrega] = useState<{
+    taxa: number;
+    tempo: string;
+    resumo: string;
+  } | null>(null);
+  const [calculando, setCalculando] = useState(false);
+
+  const setCampo = (campo: keyof Endereco, valor: string) => {
+    setEndereco((prev) => ({ ...prev, [campo]: valor }));
+    setErros((prev) => ({ ...prev, [campo]: undefined }));
+    setEntrega(null);
+  };
+
+  const validarEndereco = () => {
+    const e: Partial<Record<keyof Endereco, string>> = {};
+    if (endereco.nome.trim().length < 3) e.nome = "Informe seu nome completo";
+    if (endereco.telefone.replace(/\D/g, "").length < 10)
+      e.telefone = "Telefone inválido";
+    if (endereco.cep.replace(/\D/g, "").length !== 8) e.cep = "CEP deve ter 8 dígitos";
+    if (!endereco.rua.trim()) e.rua = "Informe a rua";
+    if (!endereco.numero.trim()) e.numero = "Informe o número";
+    if (!endereco.bairro.trim()) e.bairro = "Informe o bairro";
+    if (!endereco.cidade.trim()) e.cidade = "Informe a cidade";
+    if (endereco.estado.trim().length !== 2) e.estado = "Use a sigla (ex: PR)";
+    setErros(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const calcularTaxa = () => {
+    if (!validarEndereco()) return;
+    setCalculando(true);
+    setTimeout(() => {
+      const digitos = endereco.cep.replace(/\D/g, "");
+      const base = Number(digitos.slice(-2)) || 0;
+      const taxa = 5 + (base % 8);
+      const minutos = 30 + (base % 4) * 5;
+      setEntrega({
+        taxa,
+        tempo: `${minutos} a ${minutos + 15} minutos`,
+        resumo: `${endereco.rua}, ${endereco.numero}${endereco.complemento ? ` — ${endereco.complemento}` : ""} — ${endereco.bairro}, ${endereco.cidade}/${endereco.estado.toUpperCase()} — CEP ${endereco.cep}`,
+      });
+      setCalculando(false);
+    }, 700);
+  };
 
   const addItem = (nome: string, preco: string) => {
     setCart((prev) => {
@@ -533,17 +619,55 @@ function Index() {
             </div>
 
             <div className="space-y-4 border-t border-white/10 p-6">
+              {entrega ? (
+                <div className="space-y-2 rounded-2xl border border-brand-green/30 bg-brand-green/10 p-4 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Taxa de entrega</span>
+                    <span className="font-bold">{brl(entrega.taxa)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Tempo estimado</span>
+                    <span className="font-bold">{entrega.tempo}</span>
+                  </div>
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    ✅ Entrega para <span className="text-foreground">{endereco.nome}</span> —{" "}
+                    {entrega.resumo}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setEnderecoOpen(true)}
+                    className="text-xs font-bold uppercase tracking-widest text-brand-yellow underline decoration-2 underline-offset-4"
+                  >
+                    Editar endereço
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setEnderecoOpen(true)}
+                  className="w-full animate-pulse rounded-2xl bg-brand-yellow px-6 py-5 text-base font-black uppercase tracking-tight text-dark shadow-[0_0_30px_-6px_var(--brand-yellow)] transition-transform hover:scale-[1.02]"
+                >
+                  📍 Adicionar endereço (Obrigatório)
+                </button>
+              )}
+
               <div className="flex items-center justify-between text-lg">
                 <span className="font-bold uppercase tracking-widest">Total</span>
-                <span className="font-display text-3xl text-brand-yellow">{brl(total)}</span>
+                <span className="font-display text-3xl text-brand-yellow">
+                  {brl(total + (entrega?.taxa ?? 0))}
+                </span>
               </div>
               <button
                 type="button"
                 onClick={() => {
+                  if (!entrega) {
+                    setEnderecoOpen(true);
+                    return;
+                  }
                   // Aqui você integrará o Mercado Pago no futuro
                   alert("Redirecionando para o pagamento...");
                 }}
-                className={`w-full rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${cart.length === 0 ? "pointer-events-none opacity-40" : ""
+                className={`w-full rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${cart.length === 0 || !entrega ? "pointer-events-none opacity-40" : ""
                   }`}
               >
                 Finalizar pedido
@@ -559,6 +683,117 @@ function Index() {
               )}
             </div>
           </aside>
+        </div>
+      )}
+
+      {enderecoOpen && (
+        <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center">
+          <button
+            type="button"
+            aria-label="Fechar endereço"
+            onClick={() => setEnderecoOpen(false)}
+            className="absolute inset-0 bg-dark/80 backdrop-blur-sm"
+          />
+          <div className="relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-white/10 bg-surface p-6 sm:rounded-3xl">
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-display text-2xl uppercase">Endereço de entrega</h2>
+                <p className="text-xs text-muted-foreground">
+                  Preencha os dados para calcularmos a taxa
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEnderecoOpen(false)}
+                aria-label="Fechar"
+                className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/15 text-lg transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {([
+                { campo: "nome", label: "Nome *", span: 2, ph: "Seu nome completo" },
+                { campo: "telefone", label: "Telefone *", span: 1, ph: "(43) 99999-9999" },
+                { campo: "cep", label: "CEP *", span: 1, ph: "86000-000" },
+                { campo: "rua", label: "Rua *", span: 2, ph: "Rua Pelicano" },
+                { campo: "numero", label: "Número *", span: 1, ph: "163" },
+                { campo: "complemento", label: "Complemento", span: 1, ph: "Apto, bloco..." },
+                { campo: "bairro", label: "Bairro *", span: 2, ph: "Jardim Paraíso" },
+                { campo: "cidade", label: "Cidade *", span: 1, ph: "Londrina" },
+                { campo: "estado", label: "Estado *", span: 1, ph: "PR" },
+              ] as const).map((f) => (
+                <div key={f.campo} className={f.span === 2 ? "col-span-2" : "col-span-1"}>
+                  <label
+                    htmlFor={`end-${f.campo}`}
+                    className="mb-1.5 block text-xs font-bold uppercase tracking-widest text-muted-foreground"
+                  >
+                    {f.label}
+                  </label>
+                  <input
+                    id={`end-${f.campo}`}
+                    value={endereco[f.campo]}
+                    placeholder={f.ph}
+                    maxLength={f.campo === "estado" ? 2 : 120}
+                    inputMode={
+                      f.campo === "telefone" || f.campo === "cep" || f.campo === "numero"
+                        ? "numeric"
+                        : "text"
+                    }
+                    onChange={(ev) => {
+                      const v = ev.target.value;
+                      if (f.campo === "telefone") setCampo("telefone", maskTelefone(v));
+                      else if (f.campo === "cep") setCampo("cep", maskCep(v));
+                      else setCampo(f.campo, v);
+                    }}
+                    className={`w-full rounded-xl border bg-dark px-4 py-3 text-sm outline-none transition-colors focus:border-brand-yellow ${erros[f.campo] ? "border-brand-red" : "border-white/10"
+                      }`}
+                  />
+                  {erros[f.campo] && (
+                    <p className="mt-1 text-xs font-bold text-brand-red">{erros[f.campo]}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={calcularTaxa}
+              disabled={calculando}
+              className="mt-6 w-full rounded-xl bg-brand-blue py-4 text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-blue/90 disabled:opacity-60"
+            >
+              {calculando ? "Calculando..." : "Calcular taxa de entrega"}
+            </button>
+
+            {entrega && (
+              <div className="mt-5 space-y-3 rounded-2xl border border-brand-green/30 bg-brand-green/10 p-5">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Taxa de entrega</span>
+                  <span className="font-black text-brand-yellow">{brl(entrega.taxa)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Tempo estimado</span>
+                  <span className="font-bold">{entrega.tempo}</span>
+                </div>
+                <div className="border-t border-white/10 pt-3 text-sm">
+                  <p className="mb-1 font-bold text-brand-green">✅ Endereço confirmado</p>
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    {endereco.nome} • {endereco.telefone}
+                    <br />
+                    {entrega.resumo}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEnderecoOpen(false)}
+                  className="w-full rounded-xl bg-brand-yellow py-3.5 text-sm font-black uppercase tracking-tight text-dark transition-transform hover:scale-[1.02]"
+                >
+                  Usar este endereço
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
