@@ -619,17 +619,55 @@ function Index() {
             </div>
 
             <div className="space-y-4 border-t border-white/10 p-6">
+              {entrega ? (
+                <div className="space-y-2 rounded-2xl border border-brand-green/30 bg-brand-green/10 p-4 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Taxa de entrega</span>
+                    <span className="font-bold">{brl(entrega.taxa)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Tempo estimado</span>
+                    <span className="font-bold">{entrega.tempo}</span>
+                  </div>
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    ✅ Entrega para <span className="text-foreground">{endereco.nome}</span> —{" "}
+                    {entrega.resumo}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setEnderecoOpen(true)}
+                    className="text-xs font-bold uppercase tracking-widest text-brand-yellow underline decoration-2 underline-offset-4"
+                  >
+                    Editar endereço
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setEnderecoOpen(true)}
+                  className="w-full animate-pulse rounded-2xl bg-brand-yellow px-6 py-5 text-base font-black uppercase tracking-tight text-dark shadow-[0_0_30px_-6px_var(--brand-yellow)] transition-transform hover:scale-[1.02]"
+                >
+                  📍 Adicionar endereço (Obrigatório)
+                </button>
+              )}
+
               <div className="flex items-center justify-between text-lg">
                 <span className="font-bold uppercase tracking-widest">Total</span>
-                <span className="font-display text-3xl text-brand-yellow">{brl(total)}</span>
+                <span className="font-display text-3xl text-brand-yellow">
+                  {brl(total + (entrega?.taxa ?? 0))}
+                </span>
               </div>
               <button
                 type="button"
                 onClick={() => {
+                  if (!entrega) {
+                    setEnderecoOpen(true);
+                    return;
+                  }
                   // Aqui você integrará o Mercado Pago no futuro
                   alert("Redirecionando para o pagamento...");
                 }}
-                className={`w-full rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${cart.length === 0 ? "pointer-events-none opacity-40" : ""
+                className={`w-full rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${cart.length === 0 || !entrega ? "pointer-events-none opacity-40" : ""
                   }`}
               >
                 Finalizar pedido
