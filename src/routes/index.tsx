@@ -212,7 +212,7 @@ function Carousel({
     <>
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h3 className="mb-1 text-sm font-black uppercase tracking-widest text-brand-yellow">
+          <h3 className="mb-1 font-display text-2xl font-black uppercase tracking-tight text-brand-yellow">
             {titulo}
           </h3>
           <p className="text-xs text-muted-foreground">{subtitulo}</p>
