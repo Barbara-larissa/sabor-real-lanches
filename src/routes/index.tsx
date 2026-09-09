@@ -281,8 +281,8 @@ function Index() {
   const total = cart.reduce((s, i) => s + i.qtd * i.preco, 0);
 
 
-  const scrollByCard = (dir: 1 | -1) => {
-    const el = carouselRef.current;
+  const scrollByCard = (ref: React.RefObject<HTMLDivElement | null>, dir: 1 | -1) => {
+    const el = ref.current;
     if (!el) return;
     const card = el.querySelector<HTMLElement>("[data-card]");
     const amount = card ? card.offsetWidth + 32 : el.clientWidth * 0.8;
