@@ -6,6 +6,7 @@ import heroXtudo from "@/assets/hero-xtudo.jpg";
 import dogao from "@/assets/dogao.jpg";
 import xFerracini from "@/assets/x-ferracini.jpg";
 import xFrango from "@/assets/x-frango.jpg";
+import trailerAzul from "@/assets/trailer-azul.jpg";
 import dogaoSimples from "@/assets/dogao-simples.jpg";
 import dogaoDuplo from "@/assets/dogao-duplo.jpg";
 import xSalada from "@/assets/x-salada.jpg";
