@@ -10,76 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AdminPedidosIndexRouteImport } from './routes/admin/pedidos/index'
-import { Route as AdminPedidosIdRouteImport } from './routes/admin/pedidos/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPedidosIndexRoute = AdminPedidosIndexRouteImport.update({
-  id: '/pedidos/',
-  path: '/pedidos/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPedidosIdRoute = AdminPedidosIdRouteImport.update({
-  id: '/pedidos/$id',
-  path: '/pedidos/$id',
-  getParentRoute: () => AdminRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
-  '/admin/': typeof AdminIndexRoute
-  '/admin/pedidos/$id': typeof AdminPedidosIdRoute
-  '/admin/pedidos/': typeof AdminPedidosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminIndexRoute
-  '/admin/pedidos/$id': typeof AdminPedidosIdRoute
-  '/admin/pedidos': typeof AdminPedidosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
-  '/admin/': typeof AdminIndexRoute
-  '/admin/pedidos/$id': typeof AdminPedidosIdRoute
-  '/admin/pedidos/': typeof AdminPedidosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    '/' | '/admin' | '/admin/' | '/admin/pedidos/$id' | '/admin/pedidos/'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/admin/pedidos/$id' | '/admin/pedidos'
-  id:
-    | '__root__'
-    | '/'
-    | '/admin'
-    | '/admin/'
-    | '/admin/pedidos/$id'
-    | '/admin/pedidos/'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -91,54 +48,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/': {
-      id: '/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/pedidos/': {
-      id: '/admin/pedidos/'
-      path: '/pedidos'
-      fullPath: '/admin/pedidos/'
-      preLoaderRoute: typeof AdminPedidosIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/pedidos/$id': {
-      id: '/admin/pedidos/$id'
-      path: '/pedidos/$id'
-      fullPath: '/admin/pedidos/$id'
-      preLoaderRoute: typeof AdminPedidosIdRouteImport
-      parentRoute: typeof AdminRoute
-    }
   }
 }
 
-interface AdminRouteChildren {
-  AdminIndexRoute: typeof AdminIndexRoute
-  AdminPedidosIdRoute: typeof AdminPedidosIdRoute
-  AdminPedidosIndexRoute: typeof AdminPedidosIndexRoute
-}
-
-const AdminRouteChildren: AdminRouteChildren = {
-  AdminIndexRoute: AdminIndexRoute,
-  AdminPedidosIdRoute: AdminPedidosIdRoute,
-  AdminPedidosIndexRoute: AdminPedidosIndexRoute,
-}
-
-const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
