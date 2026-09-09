@@ -5,19 +5,17 @@ import logoFerracini from "@/assets/logo-ferracini.png";
 import heroXtudo from "@/assets/hero-xtudo.jpg";
 import dogao from "@/assets/dogao.jpg";
 import xFerracini from "@/assets/x-ferracini.jpg";
-import batataCheddar from "@/assets/batata-cheddar.jpg";
-import xCalabresa from "@/assets/x-calabresa.jpg";
-import prensado from "@/assets/prensado.jpg";
 import xFrango from "@/assets/x-frango.jpg";
-import trailerAzul from "@/assets/trailer-azul.jpg";
 import dogaoSimples from "@/assets/dogao-simples.jpg";
 import dogaoDuplo from "@/assets/dogao-duplo.jpg";
 import xSalada from "@/assets/x-salada.jpg";
 import xBacon from "@/assets/x-bacon.jpg";
 import xEgg from "@/assets/x-egg.jpg";
-import dogaoCalabresa from "@/assets/dogao-calabresa.jpg";
-import xTudoDuplo from "@/assets/x-tudo-duplo.jpg";
-import mistoQuente from "@/assets/misto-quente.jpg";
+import dogFrango from "@/assets/dog-frango.jpg";
+import dogBacon from "@/assets/dog-bacon.jpg";
+import dogFrangoBacon from "@/assets/dog-frango-bacon.jpg";
+import simplesBurguer from "@/assets/simples-burguer.jpg";
+import xBurguer from "@/assets/x-burguer.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
