@@ -5,9 +5,6 @@ import logoFerracini from "@/assets/logo-ferracini.png";
 import heroXtudo from "@/assets/hero-xtudo.jpg";
 import dogao from "@/assets/dogao.jpg";
 import xFerracini from "@/assets/x-ferracini.jpg";
-import batataCheddar from "@/assets/batata-cheddar.jpg";
-import xCalabresa from "@/assets/x-calabresa.jpg";
-import prensado from "@/assets/prensado.jpg";
 import xFrango from "@/assets/x-frango.jpg";
 import trailerAzul from "@/assets/trailer-azul.jpg";
 import dogaoSimples from "@/assets/dogao-simples.jpg";
@@ -15,9 +12,11 @@ import dogaoDuplo from "@/assets/dogao-duplo.jpg";
 import xSalada from "@/assets/x-salada.jpg";
 import xBacon from "@/assets/x-bacon.jpg";
 import xEgg from "@/assets/x-egg.jpg";
-import dogaoCalabresa from "@/assets/dogao-calabresa.jpg";
-import xTudoDuplo from "@/assets/x-tudo-duplo.jpg";
-import mistoQuente from "@/assets/misto-quente.jpg";
+import dogFrango from "@/assets/dog-frango.jpg";
+import dogBacon from "@/assets/dog-bacon.jpg";
+import dogFrangoBacon from "@/assets/dog-frango-bacon.jpg";
+import simplesBurguer from "@/assets/simples-burguer.jpg";
+import xBurguer from "@/assets/x-burguer.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -53,105 +52,98 @@ type Lanche = {
 
 const lanches: Lanche[] = [
   {
-    nome: "X-Tudo Ferracini",
-    preco: "R$ 32,00",
-    img: xFerracini,
-    desc: "Hambúrguer, presunto, ovo, bacon, queijo derretido, alface, tomate e batata palha. O clássico da casa.",
+    nome: "Simples Burguer",
+    preco: "R$ 15,00",
+    img: simplesBurguer,
+    desc: "Pão, 1 hambúrguer, tomate, ketchup, maionese.",
     hover: "hover:border-brand-yellow/40",
   },
   {
-    nome: "X-Calabresa",
-    preco: "R$ 28,00",
-    img: xCalabresa,
-    desc: "Calabresa fatiada na chapa, queijo, cebola dourada e batata palha no pão francês crocante.",
-    hover: "hover:border-brand-red/40",
-  },
-  {
-    nome: "X-Frango com Catupiry",
-    preco: "R$ 26,00",
-    img: xFrango,
-    desc: "Frango desfiado na chapa, catupiry cremoso, milho, alface e batata palha. Pedido garantido.",
-    hover: "hover:border-brand-yellow/40",
-  },
-  {
-    nome: "Misto Prensado",
-    preco: "R$ 14,00",
-    img: prensado,
-    desc: "Pão de forma na prensa com presunto e muito queijo derretido. Simples e no ponto certo.",
+    nome: "X-Burguer",
+    preco: "R$ 22,00",
+    img: xBurguer,
+    desc: "Pão, 1 hambúrguer, 2 queijo, 2 alface, tomate, batata palha, ketchup, maionese.",
     hover: "hover:border-brand-red/40",
   },
   {
     nome: "X-Salada",
-    preco: "R$ 16,00",
+    preco: "R$ 25,00",
     img: xSalada,
-    desc: "Hambúrguer 120g, queijo derretido, alface, tomate e maionese da casa no pão de gergelim.",
+    desc: "Pão, 1 hambúrguer, 2 queijo, 2 presunto, batata palha, tomate, 4 alface, ketchup, maionese.",
     hover: "hover:border-brand-green/40",
   },
   {
-    nome: "X-Bacon",
-    preco: "R$ 20,00",
-    img: xBacon,
-    desc: "Hambúrguer 120g, bacon crocante, queijo, alface e tomate. O clássico com toque defumado.",
-    hover: "hover:border-brand-red/40",
-  },
-  {
     nome: "X-Egg",
-    preco: "R$ 15,00",
+    preco: "R$ 30,00",
     img: xEgg,
-    desc: "Hambúrguer, ovo na chapa, presunto e queijo derretido no pão de gergelim. Simples e completo.",
+    desc: "Pão, 1 hambúrguer, 2 queijo, 4 ovo, batata palha, 4 alface, tomate, ketchup, maionese.",
     hover: "hover:border-brand-yellow/40",
   },
   {
-    nome: "X-Tudo Duplo",
-    preco: "R$ 38,00",
-    img: xTudoDuplo,
-    desc: "Dois hambúrgueres, presunto, dois ovos, bacon, queijo duplo, alface, tomate e batata palha. O monstro da casa.",
+    nome: "X-Frango",
+    preco: "R$ 30,00",
+    img: xFrango,
+    desc: "Pão, 1 hambúrguer, frango desfiado, 2 queijo, 2 presunto, batata palha, 4 alface, tomate, ketchup, maionese.",
     hover: "hover:border-brand-red/40",
   },
   {
-    nome: "Misto Quente",
-    preco: "R$ 10,00",
-    img: mistoQuente,
-    desc: "Pão na chapa com presunto e muito queijo derretido. O lanche rápido e barato do dia a dia.",
-    hover: "hover:border-brand-blue/40",
+    nome: "X-Bacon (1 Kilo)",
+    preco: "R$ 35,00",
+    img: xBacon,
+    desc: "Pão, 1 hambúrguer, bacon, 2 queijo, 2 presunto, batata palha, 4 alface, tomate, ketchup, maionese.",
+    hover: "hover:border-brand-red/40",
   },
   {
-    nome: "Batata com Cheddar e Bacon",
-    preco: "R$ 25,00",
-    img: batataCheddar,
-    desc: "400g de batata frita sequinha coberta com cheddar cremoso e cubos de bacon crocante.",
-    hover: "hover:border-brand-blue/40",
+    nome: "X-Tudo (2 Kilo)",
+    preco: "R$ 100,00",
+    img: xFerracini,
+    desc: "Pão, 1 hambúrguer, frango desfiado, 3 salsicha, calabresa, bacon, 4 ovo, 3 queijo, 3 presunto, batata palha, 6 alface, tomate, ketchup, maionese.",
+    hover: "hover:border-brand-yellow/40",
   },
 ];
 
 const dogs: Lanche[] = [
   {
-    nome: "Dogão Completo",
-    preco: "R$ 18,00",
-    img: dogao,
-    desc: "Duas salsichas, purê de batata, milho, ervilha, batata palha e o molho especial da casa.",
-    hover: "hover:border-brand-blue/40",
-  },
-  {
-    nome: "Dogão Simples",
+    nome: "Dog Simples",
     preco: "R$ 12,00",
     img: dogaoSimples,
-    desc: "Duas salsichas, purê de batata, milho, ervilha, batata palha e molho da casa. O dogão de início.",
+    desc: "Pão, 1 salsicha, tomate, batata palha, ketchup, maionese.",
     hover: "hover:border-brand-yellow/40",
   },
   {
-    nome: "Dogão Duplo",
-    preco: "R$ 22,00",
+    nome: "Dog Duplo",
+    preco: "R$ 15,00",
     img: dogaoDuplo,
-    desc: "Quatro salsichas, purê, milho, ervilha, batata palha, queijo derretido e molho especial. Pra quem tá com fome boa.",
+    desc: "Pão, 2 salsichas, tomate, batata palha, ketchup, maionese.",
+    hover: "hover:border-brand-blue/40",
+  },
+  {
+    nome: "Dog Presunto e Queijo",
+    preco: "R$ 18,00",
+    img: dogao,
+    desc: "Pão, 1 salsicha, 2 presunto, 2 mussarela, tomate, batata palha, ketchup, maionese.",
+    hover: "hover:border-brand-blue/40",
+  },
+  {
+    nome: "Dog Frango",
+    preco: "R$ 22,00",
+    img: dogFrango,
+    desc: "Pão, 1 salsicha, frango desfiado, tomate, batata palha, ketchup, maionese.",
+    hover: "hover:border-brand-yellow/40",
+  },
+  {
+    nome: "Dog Bacon",
+    preco: "R$ 24,00",
+    img: dogBacon,
+    desc: "Pão, 1 salsicha, bacon, tomate, batata palha, ketchup, maionese.",
     hover: "hover:border-brand-red/40",
   },
   {
-    nome: "Dogão com Calabresa",
-    preco: "R$ 24,00",
-    img: dogaoCalabresa,
-    desc: "Salsicha, calabresa fatiada na chapa, queijo, cebola dourada, milho e batata palha. O melhor de dois mundos.",
-    hover: "hover:border-brand-blue/40",
+    nome: "Dog Frango e Bacon (1 Kilo)",
+    preco: "R$ 35,00",
+    img: dogFrangoBacon,
+    desc: "Pão, 2 salsicha, frango, bacon, batata palha, tomate, ketchup, maionese.",
+    hover: "hover:border-brand-red/40",
   },
 ];
 
