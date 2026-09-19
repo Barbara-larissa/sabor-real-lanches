@@ -2,21 +2,22 @@ import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import logoFerracini from "@/assets/logo-ferracini.png";
-import heroXtudo from "@/assets/hero-xtudo.jpg";
+import heroXtudo from "@/assets/x-tudo.webp";
 import dogao from "@/assets/dogao.jpg";
-import xFerracini from "@/assets/x-ferracini.jpg";
-import xFrango from "@/assets/x-frango.jpg";
+
+import xFrango from "@/assets/x-frango.webp";
 import trailerAzul from "@/assets/trailer-azul.jpg";
 import dogaoSimples from "@/assets/dogao-simples.jpg";
 import dogaoDuplo from "@/assets/dogao-duplo.jpg";
-import xSalada from "@/assets/x-salada.jpg";
+import xSalada from "@/assets/x-salada.webp";
 import xBacon from "@/assets/x-bacon.jpg";
-import xEgg from "@/assets/x-egg.jpg";
+import xEgg from "@/assets/x-egg.webp";
 import dogFrango from "@/assets/dog-frango.jpg";
 import dogBacon from "@/assets/dog-bacon.jpg";
 import dogFrangoBacon from "@/assets/dog-frango-bacon.jpg";
 import simplesBurguer from "@/assets/simples-burguer.jpg";
 import xBurguer from "@/assets/x-burguer.jpg";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -96,7 +97,7 @@ const lanches: Lanche[] = [
   {
     nome: "X-Tudo (2 Kilo)",
     preco: "R$ 100,00",
-    img: xFerracini,
+    img: heroXtudo,
     desc: "Pão, 1 hambúrguer, frango desfiado, 3 salsicha, calabresa, bacon, 4 ovo, 3 queijo, 3 presunto, batata palha, 6 alface, tomate, ketchup, maionese.",
     hover: "hover:border-brand-yellow/40",
   },
@@ -281,11 +282,13 @@ function Carousel({
 function Index() {
   const lanchesRef = useRef<HTMLDivElement>(null);
   const dogsRef = useRef<HTMLDivElement>(null);
+
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [enderecoOpen, setEnderecoOpen] = useState(false);
   const [endereco, setEndereco] = useState<Endereco>(enderecoVazio);
   const [erros, setErros] = useState<Partial<Record<keyof Endereco, string>>>({});
+
   const [entrega, setEntrega] = useState<{
     taxa: number;
     tempo: string;
