@@ -3,20 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import logoFerracini from "@/assets/logo-ferracini.png";
 import heroXtudo from "@/assets/x-tudo.webp";
-import dogao from "@/assets/dogao.jpg";
-
-import xFrango from "@/assets/x-frango.webp";
 import trailerAzul from "@/assets/trailer-azul.jpg";
-import dogaoSimples from "@/assets/dogao-simples.jpg";
-import dogaoDuplo from "@/assets/dogao-duplo.jpg";
-import xSalada from "@/assets/x-salada.webp";
-import xBacon from "@/assets/x-bacon.jpg";
-import xEgg from "@/assets/x-egg.webp";
-import dogFrango from "@/assets/dog-frango.jpg";
-import dogBacon from "@/assets/dog-bacon.jpg";
-import dogFrangoBacon from "@/assets/dog-frango-bacon.jpg";
-import simplesBurguer from "@/assets/simples-burguer.jpg";
-import xBurguer from "@/assets/x-burguer.jpg";
+import { lanches, dogs, promocaoDoDia, type Lanche } from "@/data/cardapio";
 
 
 export const Route = createFileRoute("/")({
