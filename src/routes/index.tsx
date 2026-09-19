@@ -333,6 +333,77 @@ function Index() {
         </div>
       </header>
 
+      <section id="promocao" className="px-6 pb-20">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-brand-red/40 bg-gradient-to-br from-brand-red/25 via-dark to-dark p-6 md:p-10">
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="font-display text-4xl uppercase leading-none md:text-6xl">
+                🔥 Promoção <span className="text-brand-yellow">do Dia</span>
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Toda semana um lanche com preço especial no trailer azul.
+              </p>
+            </div>
+            <span className="rounded-full border border-brand-yellow/40 bg-brand-yellow/15 px-4 py-2 text-xs font-black uppercase tracking-widest text-brand-yellow">
+              {promocaoDoDia ? promocaoDoDia.diaSemana : "Em breve"}
+            </span>
+          </div>
+
+          {promocaoDoDia ? (
+            <div className="grid items-center gap-8 md:grid-cols-2">
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
+                <img
+                  src={promocaoDoDia.img}
+                  alt={promocaoDoDia.nome}
+                  loading="lazy"
+                  width={1024}
+                  height={768}
+                  className="size-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="mb-4 inline-block rounded bg-brand-red px-3 py-1 text-xs font-black uppercase tracking-widest">
+                  {promocaoDoDia.selo}
+                </span>
+                <h3 className="mb-3 font-display text-3xl uppercase md:text-5xl">
+                  {promocaoDoDia.nome}
+                </h3>
+                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                  {promocaoDoDia.desc}
+                </p>
+                <div className="flex items-end gap-4">
+                  {promocaoDoDia.precoAntigo ? (
+                    <span className="text-lg text-muted-foreground line-through">
+                      {promocaoDoDia.precoAntigo}
+                    </span>
+                  ) : null}
+                  <span className="font-display text-4xl text-brand-yellow md:text-5xl">
+                    {promocaoDoDia.preco}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid items-center gap-8 md:grid-cols-2">
+              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-dashed border-white/15 bg-surface text-sm text-muted-foreground">
+                Espaço reservado para a foto do lanche
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 w-24 rounded bg-white/10" />
+                <div className="h-10 w-3/4 rounded bg-white/10" />
+                <div className="h-4 w-full rounded bg-white/5" />
+                <div className="h-4 w-5/6 rounded bg-white/5" />
+                <div className="h-10 w-32 rounded bg-brand-yellow/20" />
+                <p className="pt-2 text-sm text-muted-foreground">
+                  Nenhuma promoção definida para hoje. Volte mais tarde ou confira o cardápio
+                  completo abaixo.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       <section id="cardapio" className="bg-surface py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16">
