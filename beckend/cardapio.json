@@ -1,0 +1,78 @@
+{
+  "Simples Burguer": {
+    "preco": 17,
+    "disponivel": true,
+    "promocaoDoDia": true,
+    "diaPromocao": "Sábado",
+    "precoPromocional": 10
+  },
+  "X-Burguer": {
+    "preco": 18,
+    "disponivel": true,
+    "promocaoDoDia": true,
+    "diaPromocao": "Segunda-feira",
+    "precoPromocional": 10
+  },
+  "X-Salada": {
+    "preco": 20,
+    "disponivel": true,
+    "promocaoDoDia": true,
+    "diaPromocao": "Sexta-feira",
+    "precoPromocional": 18
+  },
+  "X-Egg": {
+    "preco": 30,
+    "disponivel": true,
+    "promocaoDoDia": true,
+    "diaPromocao": "Domingo",
+    "precoPromocional": 25
+  },
+  "X-Frango": {
+    "preco": 30,
+    "disponivel": true,
+    "promocaoDoDia": true,
+    "diaPromocao": "Terça-feira",
+    "precoPromocional": 25
+  },
+  "X-Bacon (1 Kilo)": {
+    "preco": 35,
+    "disponivel": true
+  },
+  "X-Tudo (2 Kilo)": {
+    "preco": 100,
+    "disponivel": true,
+    "precoPromocional": 80,
+    "promocaoDoDia": true,
+    "diaPromocao": "Sexta-feira"
+  },
+  "Dog Simples": {
+    "preco": 12,
+    "disponivel": true
+  },
+  "Dog Duplo": {
+    "preco": 15,
+    "disponivel": true
+  },
+  "Dog Presunto e Queijo": {
+    "preco": 18,
+    "disponivel": true
+  },
+  "Dog Frango": {
+    "preco": 22,
+    "disponivel": true
+  },
+  "Dog Bacon": {
+    "preco": 24,
+    "disponivel": true,
+    "precoPromocional": 20,
+    "promocaoDoDia": true,
+    "diaPromocao": "Quinta-feira"
+  },
+  "Dog Frango e Bacon (1 Kilo)": {
+    "preco": 35,
+    "disponivel": true,
+    "precoPromocional": 30,
+    "promocaoDoDia": true,
+    "diaPromocao": "Quinta-feira"
+  }
+}

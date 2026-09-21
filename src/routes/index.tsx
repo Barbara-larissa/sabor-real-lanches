@@ -1,11 +1,25 @@
-import { useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
 import { createFileRoute } from "@tanstack/react-router";
 
 import logoFerracini from "@/assets/logo-ferracini.png";
-import heroXtudo from "@/assets/x-tudo.webp";
-import trailerAzul from "@/assets/trailer-azul.jpg";
-import { lanches, dogs, promocaoDoDia, type Lanche } from "@/data/cardapio";
 
+import heroXtudo from "@/assets/x-tudo.webp";
+
+import trailerAzul from "@/assets/trailer-azul.jpg";
+
+import {
+  lanches,
+  dogs,
+  buscarProdutosAtualizados,
+  buscarPromocaoDoDia,
+  type Lanche,
+  type Promocao,
+} from "@/data/cardapio";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -180,6 +194,84 @@ function Index() {
   } | null>(null);
   const [calculando, setCalculando] = useState(false);
 
+
+
+const [
+  lanchesExibidos,
+  setLanchesExibidos,
+] = useState(lanches);
+
+const [
+  dogsExibidos,
+  setDogsExibidos,
+] = useState(dogs);
+
+const [
+  promocaoAtual,
+  setPromocaoAtual,
+] = useState<Promocao | null>(null);
+
+
+
+
+
+
+useEffect(() => {
+  let ativo = true;
+
+  const sincronizarCardapio = async () => {
+    try {
+      const [
+        produtos,
+        promocao,
+      ] = await Promise.all([
+        buscarProdutosAtualizados(),
+        buscarPromocaoDoDia(),
+      ]);
+
+      if (!ativo) {
+        return;
+      }
+
+      setLanchesExibidos(
+        produtos.lanches
+      );
+
+      setDogsExibidos(
+        produtos.dogs
+      );
+
+      setPromocaoAtual(
+        promocao
+      );
+    } catch (error) {
+      console.error(
+        "Erro ao sincronizar cardápio:",
+        error
+      );
+    }
+  };
+
+  sincronizarCardapio();
+
+  const intervalo =
+    window.setInterval(
+      sincronizarCardapio,
+      10000
+    );
+
+  return () => {
+    ativo = false;
+    window.clearInterval(
+      intervalo
+    );
+  };
+}, []);
+
+
+
+
+
   const setCampo = (campo: keyof Endereco, valor: string) => {
     setEndereco((prev) => ({ ...prev, [campo]: valor }));
     setErros((prev) => ({ ...prev, [campo]: undefined }));
@@ -333,76 +425,130 @@ function Index() {
         </div>
       </header>
 
-      <section id="promocao" className="px-6 pb-20">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-brand-red/40 bg-gradient-to-br from-brand-red/25 via-dark to-dark p-6 md:p-10">
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h2 className="font-display text-4xl uppercase leading-none md:text-6xl">
-                🔥 Promoção <span className="text-brand-yellow">do Dia</span>
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Toda semana um lanche com preço especial no trailer azul.
-              </p>
-            </div>
-            <span className="rounded-full border border-brand-yellow/40 bg-brand-yellow/15 px-4 py-2 text-xs font-black uppercase tracking-widest text-brand-yellow">
-              {promocaoDoDia ? promocaoDoDia.diaSemana : "Em breve"}
-            </span>
-          </div>
+     ```tsx
+<section id="promocao" className="px-6 pb-20">
+  <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-brand-red/40 bg-gradient-to-br from-brand-red/25 via-dark to-dark p-6 md:p-10">
 
-          {promocaoDoDia ? (
-            <div className="grid items-center gap-8 md:grid-cols-2">
-              <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
-                <img
-                  src={promocaoDoDia.img}
-                  alt={promocaoDoDia.nome}
-                  loading="lazy"
-                  width={1024}
-                  height={768}
-                  className="size-full object-cover"
-                />
-              </div>
-              <div>
-                <span className="mb-4 inline-block rounded bg-brand-red px-3 py-1 text-xs font-black uppercase tracking-widest">
-                  {promocaoDoDia.selo}
-                </span>
-                <h3 className="mb-3 font-display text-3xl uppercase md:text-5xl">
-                  {promocaoDoDia.nome}
-                </h3>
-                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                  {promocaoDoDia.desc}
-                </p>
-                <div className="flex items-end gap-4">
-                  {promocaoDoDia.precoAntigo ? (
-                    <span className="text-lg text-muted-foreground line-through">
-                      {promocaoDoDia.precoAntigo}
-                    </span>
-                  ) : null}
-                  <span className="font-display text-4xl text-brand-yellow md:text-5xl">
-                    {promocaoDoDia.preco}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="grid items-center gap-8 md:grid-cols-2">
-              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-dashed border-white/15 bg-surface text-sm text-muted-foreground">
-                Espaço reservado para a foto do lanche
-              </div>
-              <div className="space-y-4">
-                <div className="h-4 w-24 rounded bg-white/10" />
-                <div className="h-10 w-3/4 rounded bg-white/10" />
-                <div className="h-4 w-full rounded bg-white/5" />
-                <div className="h-4 w-5/6 rounded bg-white/5" />
-                <div className="h-10 w-32 rounded bg-brand-yellow/20" />
-                <p className="pt-2 text-sm text-muted-foreground">
-                  Nenhuma promoção definida para hoje. Volte mais tarde ou confira o cardápio
-                  completo abaixo.
-                </p>
-              </div>
-            </div>
-          )}
+    <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+
+      <div>
+        <h2 className="font-display text-4xl uppercase leading-none md:text-6xl">
+          🔥 Promoção{" "}
+          <span className="text-brand-yellow">
+            do Dia
+          </span>
+        </h2>
+
+        <p className="mt-2 text-sm text-muted-foreground">
+          Toda semana um lanche com preço especial no trailer azul.
+        </p>
+      </div>
+
+      <span className="rounded-full border border-brand-yellow/40 bg-brand-yellow/15 px-4 py-2 text-xs font-black uppercase tracking-widest text-brand-yellow">
+        {promocaoAtual
+          ? promocaoAtual.diaSemana
+          : "Em breve"}
+      </span>
+
+    </div>
+
+    {promocaoAtual ? (
+
+      <div className="grid items-center gap-8 md:grid-cols-2">
+
+        <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
+
+          <img
+            src={promocaoAtual.img}
+            alt={promocaoAtual.nome}
+            loading="lazy"
+            width={1024}
+            height={768}
+            className="size-full object-cover"
+          />
+
         </div>
-      </section>
+
+        <div>
+
+          <span className="mb-4 inline-block rounded bg-brand-red px-3 py-1 text-xs font-black uppercase tracking-widest">
+            {promocaoAtual.selo}
+          </span>
+
+          <h3 className="mb-3 font-display text-3xl uppercase md:text-5xl">
+            {promocaoAtual.nome}
+          </h3>
+
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+            {promocaoAtual.desc}
+          </p>
+
+
+<div className="flex items-end gap-4">
+
+  {promocaoAtual.precoAntigo ? (
+    <span className="text-lg text-muted-foreground line-through">
+      {promocaoAtual.precoAntigo}
+    </span>
+  ) : null}
+
+  <span className="font-display text-4xl text-brand-yellow md:text-5xl">
+    {promocaoAtual.preco}
+  </span>
+
+</div>
+
+<button
+  type="button"
+  onClick={() =>
+    addItem(
+      promocaoAtual.nome,
+      promocaoAtual.preco
+    )
+  }
+  className="mt-6 w-full rounded-xl bg-brand-yellow py-4 text-sm font-black uppercase tracking-widest text-dark transition-all hover:scale-[1.02] hover:brightness-110 md:w-auto md:px-8"
+>
+  🛒 Adicionar ao carrinho
+</button>
+
+
+        </div>
+
+      </div>
+
+    ) : (
+
+      <div className="grid items-center gap-8 md:grid-cols-2">
+
+        <div className="flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-dashed border-white/15 bg-surface text-sm text-muted-foreground">
+          Espaço reservado para a foto do lanche
+        </div>
+
+        <div className="space-y-4">
+
+          <div className="h-4 w-24 rounded bg-white/10" />
+
+          <div className="h-10 w-3/4 rounded bg-white/10" />
+
+          <div className="h-4 w-full rounded bg-white/5" />
+
+          <div className="h-4 w-5/6 rounded bg-white/5" />
+
+          <div className="h-10 w-32 rounded bg-brand-yellow/20" />
+
+          <p className="pt-2 text-sm text-muted-foreground">
+            Nenhuma promoção definida para hoje. Volte mais tarde ou confira o cardápio completo abaixo.
+          </p>
+
+        </div>
+
+      </div>
+
+    )}
+
+  </div>
+</section>
+```
 
       <section id="cardapio" className="bg-surface py-24">
         <div className="mx-auto max-w-7xl px-6">
@@ -424,23 +570,23 @@ function Index() {
             </div>
           </div>
 
-          <Carousel
-            titulo="Lanches"
-            subtitulo={`${lanches.length} opções na chapa`}
-            itens={lanches}
-            carouselRef={lanchesRef}
-            onScroll={scrollByCard}
-            onAdd={addItem}
-          />
+        <Carousel
+  titulo="Lanches"
+  subtitulo={`${lanchesExibidos.length} opções na chapa`}
+  itens={lanchesExibidos}
+  carouselRef={lanchesRef}
+  onScroll={scrollByCard}
+  onAdd={addItem}
+/>
 
-          <Carousel
-            titulo="Dogs"
-            subtitulo={`${dogs.length} opções de dogão`}
-            itens={dogs}
-            carouselRef={dogsRef}
-            onScroll={scrollByCard}
-            onAdd={addItem}
-          />
+<Carousel
+  titulo="Dogs"
+  subtitulo={`${dogsExibidos.length} opções de dogão`}
+  itens={dogsExibidos}
+  carouselRef={dogsRef}
+  onScroll={scrollByCard}
+  onAdd={addItem}
+/>
         </div>
       </section>
 
@@ -516,7 +662,7 @@ function Index() {
       <footer className="border-t border-white/5 py-12">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 md:flex-row">
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-            © {new Date().getFullYear()} Ferracini Lanches — Londrina/PR
+            © {new Date().getFullYear()} Sabor Real — Londrina/PR
           </p>
           <a
             href={INSTAGRAM}
@@ -524,7 +670,7 @@ function Index() {
             rel="noreferrer"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            @ferracinilanches
+           @
           </a>
         </div>
       </footer>
@@ -657,14 +803,85 @@ function Index() {
               </div>
               <button
                 type="button"
-                onClick={() => {
-                  if (!entrega) {
-                    setEnderecoOpen(true);
-                    return;
-                  }
-                  // Aqui você integrará o Mercado Pago no futuro
-                  alert("Redirecionando para o pagamento...");
-                }}
+               onClick={async () => {
+  if (!entrega) {
+    setEnderecoOpen(true);
+    return;
+  }
+
+  try {
+    const itensCarrinho = [
+      ...cart.map((item) => ({
+        name: item.nome,
+        quantity: item.qtd,
+        price: item.preco,
+      })),
+
+      ...(entrega.taxa > 0
+        ? [
+            {
+              name: "Taxa de Entrega",
+              quantity: 1,
+              price: entrega.taxa,
+            },
+          ]
+        : []),
+    ];
+
+    const response = await fetch(
+      "http://localhost:3001/criar-preferencia",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+       body: JSON.stringify({
+  items: itensCarrinho,
+
+  cliente: {
+    nome: endereco.nome,
+    telefone: endereco.telefone,
+
+    endereco: [
+      `${endereco.rua}, ${endereco.numero}`,
+      endereco.complemento,
+      endereco.bairro,
+      `${endereco.cidade}/${endereco.estado}`,
+      `CEP: ${endereco.cep}`,
+    ]
+      .filter(Boolean)
+      .join(" - "),
+  },
+}),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.init_point) {
+      window.location.href = data.init_point;
+    } else {
+      console.error(
+        "Resposta do servidor:",
+        data
+      );
+
+      alert(
+        data.error ||
+          "Erro ao gerar link de pagamento."
+      );
+    }
+  } catch (error) {
+    console.error(
+      "Erro ao processar pagamento:",
+      error
+    );
+
+    alert(
+      "Não foi possível iniciar o pagamento. Verifique se o servidor está rodando na porta 3001."
+    );
+  }
+}}
                 className={`w-full rounded-xl bg-brand-red py-4 text-center text-sm font-black uppercase tracking-tight transition-colors hover:bg-brand-red/90 ${cart.length === 0 || !entrega ? "pointer-events-none opacity-40" : ""
                   }`}
               >
