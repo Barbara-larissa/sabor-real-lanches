@@ -422,7 +422,7 @@ app.post(
               pending: "https://sabor-real-lanches.vercel.app/",
               failure: "https://sabor-real-lanches.vercel.app/",
             },
-            notification_url: "https://URL-REAL-DO-SEU-BACKEND/webhook",
+          notification_url: "https://sabor-real-lanches.onrender.com/webhook",
             auto_return: "approved",
           },
         });
