@@ -410,8 +410,7 @@ app.post(
             items: formattedItems,
 
             payer: {
-              email:
-                "teste.cliente.saborreal@gmail.com",
+              email: "test_user_12345678@testuser.com",
             },
 
             external_reference:
