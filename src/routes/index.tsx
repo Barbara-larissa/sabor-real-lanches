@@ -7,10 +7,9 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 
 import logoSabor from "@/assets/logo-1.png";
+import heroXtudo from "@/assets/xtudo.png";
 
-import heroXtudo from "@/assets/x-tudo.webp";
-
-import trailerAzul from "@/assets/trailer-azul.jpg";
+import trailerAzul from "@/assets/triler.png";
 
 import {
   lanches,
@@ -111,9 +110,9 @@ function Carousel({
     <>
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h3 className="mb-1 font-display text-2xl font-black uppercase tracking-tight text-brand-yellow">
-            {titulo}
-          </h3>
+        <h3 className="mb-2 font-display text-4xl font-black uppercase tracking-wide text-brand-yellow md:text-5xl">
+  {titulo}
+</h3>
           <p className="text-xs text-muted-foreground">{subtitulo}</p>
         </div>
         <div className="flex gap-2">
@@ -425,7 +424,6 @@ useEffect(() => {
         </div>
       </header>
 
-     ```tsx
 <section id="promocao" className="px-6 pb-20">
   <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-brand-red/40 bg-gradient-to-br from-brand-red/25 via-dark to-dark p-6 md:p-10">
 
@@ -548,7 +546,7 @@ useEffect(() => {
 
   </div>
 </section>
-```
+
 
       <section id="cardapio" className="bg-surface py-24">
         <div className="mx-auto max-w-7xl px-6">

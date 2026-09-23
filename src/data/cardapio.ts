@@ -1,16 +1,16 @@
-import heroXtudo from "@/assets/x-tudo.webp";
-import dogao from "@/assets/dogao.jpg";
+import heroXtudo from "@/assets/xtudo.png";
+import dogao from "@/assets/dogpreseunqueijo.png";
 import xFrango from "@/assets/x-frango.webp";
-import dogaoSimples from "@/assets/dogao-simples.jpg";
-import dogaoDuplo from "@/assets/dogao-duplo.jpg";
+import dogaoSimples from "@/assets/dogsimplees.png";
+import dogaoDuplo from "@/assets/dogduplo.png";
 import xSalada from "@/assets/x-salada.webp";
-import xBacon from "@/assets/x-bacon.jpg";
+import xBacon from "@/assets/xbacon.png";
 import xEgg from "@/assets/x-egg.webp";
-import dogFrango from "@/assets/dog-frango.jpg";
-import dogBacon from "@/assets/dog-bacon.jpg";
-import dogFrangoBacon from "@/assets/dog-frango-bacon.jpg";
-import simplesBurguer from "@/assets/simples-burguer.jpg";
-import xBurguer from "@/assets/x-burguer.jpg";
+import dogFrango from "@/assets/dogfrango.png";
+import dogBacon from "@/assets/dogbacon.png";
+import dogFrangoBacon from "@/assets/dogfrangobacon.png";
+import simplesBurguer from "@/assets/xburguer.png";
+import xBurguer from "@/assets/xburguer.png";
 
 /* =========================================================
    CONFIGURAÇÃO DA API
