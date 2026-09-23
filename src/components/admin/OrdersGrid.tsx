@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import OrderCard, { type OrderData } from "./OrderCard";
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://sabor-real-lanches.onrender.com";
 
 export default function OrdersGrid() {
   const [orders, setOrders] = useState<OrderData[]>([]);
