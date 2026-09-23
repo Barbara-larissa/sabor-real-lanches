@@ -829,7 +829,7 @@ useEffect(() => {
     ];
 
     const response = await fetch(
-      "http://localhost:3001/criar-preferencia",
+      "https://sabor-real-lanches.onrender.com/criar-preferencia",
       {
         method: "POST",
         headers: {
