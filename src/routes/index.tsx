@@ -6,7 +6,7 @@ import {
 
 import { createFileRoute } from "@tanstack/react-router";
 
-import logoFerracini from "@/assets/logo-ferracini.png";
+import logoSabor from "@/assets/logo-1.png";
 
 import heroXtudo from "@/assets/x-tudo.webp";
 
@@ -24,13 +24,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ferracini Lanches — X-Tudo e Dogão na Zona Norte de Londrina" },
+      { title: "Sabor Real — X-Tudo e Dogão na Zona Norte de Londrina" },
       {
         name: "description",
         content:
           "Lanches gigantes na chapa, X-Tudo, dogão e porções. Trailer azul na Rua Pelicano, 163 — Jardim Paraíso, Londrina. Peça o seu.",
       },
-      { property: "og:title", content: "Ferracini Lanches — Londrina" },
+      { property: "og:title", content: "Sabor Real — Londrina" },
       {
         property: "og:description",
         content:
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const INSTAGRAM = "https://www.instagram.com/ferracinilanches/";
+const INSTAGRAM = "";
 
 
 type CartItem = { nome: string; preco: number; qtd: number };
@@ -351,14 +351,14 @@ useEffect(() => {
         <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-3">
             <img
-              src={logoFerracini}
-              alt="Ferracini Lanches"
+              src={logoSabor}
+              alt="Sabor Real"
               width={80}
               height={80}
               className="h-20 w-20 object-contain"
             />
             <span className="font-display text-2xl uppercase tracking-tight">
-              Ferracini <span className="text-brand-yellow">Lanches</span>
+              Sabor Real
             </span>
           </a>
           <div className="hidden gap-8 text-sm font-bold uppercase tracking-widest md:flex">
@@ -392,8 +392,8 @@ useEffect(() => {
               <span className="text-brand-yellow">X-TUDO</span>
             </h1>
             <p className="mb-10 max-w-md text-lg leading-relaxed text-muted-foreground">
-              Fome de verdade pede um Ferracini. Pão fresco, chapa quente e o tamanho que você
-              merece. Direto do nosso trailer azul, no Jardim Paraíso.
+              Fome de verdade pede um Sabor Real. Pão fresco, chapa quente e o tamanho que você
+              merece. Direto do nosso trailer.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <a
@@ -416,7 +416,7 @@ useEffect(() => {
             <div className="absolute -inset-4 rounded-full bg-brand-yellow/20 blur-3xl" />
             <img
               src={heroXtudo}
-              alt="X-Tudo do Ferracini Lanches com calabresa, ovo, queijo e batata palha"
+              alt="X-Tudo do Sabor Real com calabresa, ovo, queijo e batata palha"
               width={1024}
               height={1024}
               className="relative aspect-square w-full rounded-3xl object-cover shadow-2xl outline-1 -outline-offset-1 outline-white/10"
@@ -595,7 +595,7 @@ useEffect(() => {
           <div className="relative min-h-[400px] overflow-hidden rounded-3xl">
             <img
               src={trailerAzul}
-              alt="Trailer azul do Ferracini Lanches à noite com mesas na calçada"
+              alt="Trailer azul do Sabor Real à noite com mesas na calçada"
               loading="lazy"
               width={1280}
               height={864}
@@ -615,9 +615,9 @@ useEffect(() => {
                 <div>
                   <h3 className="mb-1 font-bold">Nosso Endereço</h3>
                   <p className="text-sm text-muted-foreground">
-                    Rua Pelicano, 163 — Trailer Azul
+                    
                     <br />
-                    Jardim Paraíso, Londrina - PR
+                    
                   </p>
                 </div>
               </div>

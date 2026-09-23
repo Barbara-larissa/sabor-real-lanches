@@ -16,7 +16,7 @@ function AdminPage() {
         </h1>
 
         <p className="mt-4 text-gray-400">
-          Bem-vindo ao painel administrativo da Ferracini Lanches.
+          Bem-vindo ao painel administrativo da Sabor Real.
         </p>
       </section>
     </main>
