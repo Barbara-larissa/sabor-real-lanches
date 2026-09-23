@@ -43,9 +43,35 @@ export default function OrderCard({
     });
   };
 
-  const aceitarPedido = () => {
-    setStatus("Em produção");
-  };
+
+
+
+const aceitarPedido = () => {
+  const telefone = String(order.phone || "").replace(/\D/g, "");
+
+  if (!telefone) {
+    console.warn("Telefone do cliente não informado.");
+    return;
+  }
+
+  const numeroWhatsApp = telefone.startsWith("55")
+    ? telefone
+    : `55${telefone}`;
+
+  const mensagem = `🍔 Sabor Real
+
+Seu pedido #${order.orderNumber} foi aceito e está sendo preparado! 🟢
+
+Estamos preparando seu pedido. Em breve ele sairá para entrega.`;
+
+  const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
+    mensagem
+  )}`;
+
+  setStatus("Em produção");
+
+  window.location.href = urlWhatsApp;
+};
 
   const sairParaEntrega = () => {
     setStatus("Saiu para entrega");
