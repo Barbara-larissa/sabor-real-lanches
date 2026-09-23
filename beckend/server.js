@@ -446,9 +446,10 @@ app.post(
         }
       );
 
-      console.log(
-        `[PREFERÊNCIA] Criada com sucesso: ${externalReference} | Preference ID: ${result.id}`
-      );
+    console.log(
+  "[PREFERÊNCIA COMPLETA]",
+  JSON.stringify(result, null, 2)
+);
 
       return res.json({
         init_point:
