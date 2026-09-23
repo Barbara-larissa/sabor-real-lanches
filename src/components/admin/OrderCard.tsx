@@ -45,7 +45,6 @@ export default function OrderCard({
 
 
 
-
 const aceitarPedido = () => {
   const telefone = String(order.phone || "").replace(/\D/g, "");
 
@@ -58,11 +57,17 @@ const aceitarPedido = () => {
     ? telefone
     : `55${telefone}`;
 
-  const mensagem = `🍔 Sabor Real
+  const mensagem = `🍔 *SABOR REAL LANCHES*
 
-Seu pedido #${order.orderNumber} foi aceito e está sendo preparado! 🟢
+Olá, ${order.customerName}! 👋
 
-Estamos preparando seu pedido. Em breve ele sairá para entrega.`;
+Seu pedido *#${order.orderNumber}* foi aceito e já está sendo preparado. 🟢
+
+👨‍🍳 Estamos preparando tudo com carinho para você!
+
+Em breve seu pedido sairá para entrega. 🛵
+
+Obrigado por pedir com a Sabor Real! ❤️`;
 
   const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
     mensagem
@@ -72,6 +77,9 @@ Estamos preparando seu pedido. Em breve ele sairá para entrega.`;
 
   window.location.href = urlWhatsApp;
 };
+
+
+
 
   const sairParaEntrega = () => {
     setStatus("Saiu para entrega");
