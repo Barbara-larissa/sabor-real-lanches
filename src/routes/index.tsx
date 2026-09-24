@@ -972,12 +972,41 @@ const [pagamentoAprovado, setPagamentoAprovado] = useState(false);
                         ? "numeric"
                         : "text"
                     }
-                    onChange={(ev) => {
-                      const v = ev.target.value;
-                      if (f.campo === "telefone") setCampo("telefone", maskTelefone(v));
-                      else if (f.campo === "cep") setCampo("cep", maskCep(v));
-                      else setCampo(f.campo, v);
-                    }}
+                 onChange={async (ev) => {
+  const v = ev.target.value;
+
+  if (f.campo === "telefone") {
+    setCampo("telefone", maskTelefone(v));
+
+  } else if (f.campo === "cep") {
+    const cepMascarado = maskCep(v);
+    setCampo("cep", cepMascarado);
+
+    const cepLimpo = v.replace(/\D/g, "");
+
+    if (cepLimpo.length === 8) {
+      try {
+        const response = await fetch(
+          `https://viacep.com.br/ws/${cepLimpo}/json/`
+        );
+
+        const data = await response.json();
+
+        if (!data.erro) {
+          setCampo("rua", data.logradouro || "");
+          setCampo("bairro", data.bairro || "");
+          setCampo("cidade", data.localidade || "");
+          setCampo("estado", data.uf || "");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar CEP:", error);
+      }
+    }
+
+  } else {
+    setCampo(f.campo, v);
+  }
+}}
                     className={`w-full rounded-xl border bg-dark px-4 py-3 text-sm outline-none transition-colors focus:border-brand-yellow ${erros[f.campo] ? "border-brand-red" : "border-white/10"
                       }`}
                   />
