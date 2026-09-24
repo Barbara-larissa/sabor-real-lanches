@@ -34,15 +34,7 @@ export type Lanche = {
    ========================================================= */
 
 export const lanches: Lanche[] = [
-  {
-    nome: "Simples Burguer",
-    preco: "R$ 15,00",
-    img: simplesBurguer,
-    desc:
-      "Pão,  hambúrguer, tomate, ketchup, maionese.",
-    hover:
-      "hover:border-brand-yellow/40",
-  },
+
 
   {
     nome: "X-Burguer",
