@@ -49,7 +49,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 22,00",
     img: xBurguer,
     desc:
-      "Pão,  hambúrguer, 2 queijo, 2 alface, tomate, batata palha, ketchup, maionese.",
+      "Pão,  hambúrguer,  queijo,  alface, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
@@ -59,7 +59,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 25,00",
     img: xSalada,
     desc:
-      "Pão,  hambúrguer, 2 queijo, 2 presunto, batata palha, tomate, 4 alface, ketchup, maionese.",
+      "Pão,  hambúrguer,  queijo, 2 presunto, batata palha, tomate,  alface, ketchup, maionese.",
     hover:
       "hover:border-brand-green/40",
   },
@@ -69,7 +69,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 30,00",
     img: xEgg,
     desc:
-      "Pão,  hambúrguer, 2 queijo, 4 ovo, batata palha, 4 alface, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer,  queijo, ovo, batata palha,  alface, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-yellow/40",
   },
@@ -79,7 +79,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 30,00",
     img: xFrango,
     desc:
-      "Pão,  hambúrguer, frango desfiado,  queijo,  presunto, batata palha, 4 alface, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer, frango desfiado,  queijo,  presunto, batata palha,  alface, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
@@ -135,7 +135,7 @@ export const dogs: Lanche[] = [
     preco: "R$ 18,00",
     img: dogao,
     desc:
-      "Pão,  salsicha, 2 presunto, 2 mussarela, tomate, batata palha, ketchup, maionese.",
+      "Pão,  salsicha,  presunto, mussarela, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-blue/40",
   },
