@@ -16,7 +16,7 @@ import xBurguer from "@/assets/xburguer.png";
    CONFIGURAÇÃO DA API
    ========================================================= */
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://sabor-real-lanches.onrender.com";
 /* =========================================================
    PRODUTO BASE DO FRONT-END
    ========================================================= */
@@ -39,7 +39,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 15,00",
     img: simplesBurguer,
     desc:
-      "Pão, 1 hambúrguer, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-yellow/40",
   },
@@ -49,7 +49,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 22,00",
     img: xBurguer,
     desc:
-      "Pão, 1 hambúrguer, 2 queijo, 2 alface, tomate, batata palha, ketchup, maionese.",
+      "Pão,  hambúrguer, 2 queijo, 2 alface, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
@@ -59,7 +59,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 25,00",
     img: xSalada,
     desc:
-      "Pão, 1 hambúrguer, 2 queijo, 2 presunto, batata palha, tomate, 4 alface, ketchup, maionese.",
+      "Pão,  hambúrguer, 2 queijo, 2 presunto, batata palha, tomate, 4 alface, ketchup, maionese.",
     hover:
       "hover:border-brand-green/40",
   },
@@ -69,7 +69,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 30,00",
     img: xEgg,
     desc:
-      "Pão, 1 hambúrguer, 2 queijo, 4 ovo, batata palha, 4 alface, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer, 2 queijo, 4 ovo, batata palha, 4 alface, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-yellow/40",
   },
@@ -79,27 +79,27 @@ export const lanches: Lanche[] = [
     preco: "R$ 30,00",
     img: xFrango,
     desc:
-      "Pão, 1 hambúrguer, frango desfiado, 2 queijo, 2 presunto, batata palha, 4 alface, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer, frango desfiado,  queijo,  presunto, batata palha, 4 alface, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
 
   {
-    nome: "X-Bacon (1 Kilo)",
+    nome: "X-Bacon ",
     preco: "R$ 35,00",
     img: xBacon,
     desc:
-      "Pão, 1 hambúrguer, bacon, 2 queijo, 2 presunto, batata palha, 4 alface, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer, bacon,  queijo,  presunto, batata palha, alface, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
 
   {
-    nome: "X-Tudo (2 Kilo)",
-    preco: "R$ 100,00",
+    nome: "X-Tudo da casa ",
+    preco: "R$ 50,00",
     img: heroXtudo,
     desc:
-      "Pão, 1 hambúrguer, frango desfiado, 3 salsicha, calabresa, bacon, 4 ovo, 3 queijo, 3 presunto, batata palha, 6 alface, tomate, ketchup, maionese.",
+      "Pão,  hambúrguer, frango desfiado,  salsicha, calabresa, bacon,  ovo,  queijo,  presunto, batata palha,  alface, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-yellow/40",
   },
@@ -115,7 +115,7 @@ export const dogs: Lanche[] = [
     preco: "R$ 12,00",
     img: dogaoSimples,
     desc:
-      "Pão, 1 salsicha, tomate, batata palha, ketchup, maionese.",
+      "Pão, salsicha, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-yellow/40",
   },
@@ -125,7 +125,7 @@ export const dogs: Lanche[] = [
     preco: "R$ 15,00",
     img: dogaoDuplo,
     desc:
-      "Pão, 2 salsichas, tomate, batata palha, ketchup, maionese.",
+      "Pão,  salsichas, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-blue/40",
   },
@@ -135,7 +135,7 @@ export const dogs: Lanche[] = [
     preco: "R$ 18,00",
     img: dogao,
     desc:
-      "Pão, 1 salsicha, 2 presunto, 2 mussarela, tomate, batata palha, ketchup, maionese.",
+      "Pão,  salsicha, 2 presunto, 2 mussarela, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-blue/40",
   },
@@ -145,7 +145,7 @@ export const dogs: Lanche[] = [
     preco: "R$ 22,00",
     img: dogFrango,
     desc:
-      "Pão, 1 salsicha, frango desfiado, tomate, batata palha, ketchup, maionese.",
+      "Pão,  salsicha, frango desfiado, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-yellow/40",
   },
@@ -155,17 +155,17 @@ export const dogs: Lanche[] = [
     preco: "R$ 24,00",
     img: dogBacon,
     desc:
-      "Pão, 1 salsicha, bacon, tomate, batata palha, ketchup, maionese.",
+      "Pão,  salsicha, bacon, tomate, batata palha, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
 
   {
-    nome: "Dog Frango e Bacon (1 Kilo)",
+    nome: "Dog Frango e Bacon ",
     preco: "R$ 35,00",
     img: dogFrangoBacon,
     desc:
-      "Pão, 2 salsicha, frango, bacon, batata palha, tomate, ketchup, maionese.",
+      "Pão,  salsichas, frango, bacon, batata palha, tomate, ketchup, maionese.",
     hover:
       "hover:border-brand-red/40",
   },
