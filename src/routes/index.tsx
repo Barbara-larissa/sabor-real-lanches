@@ -1025,6 +1025,7 @@ const [pagamentoAprovado, setPagamentoAprovado] = useState(false);
             >
               {calculando ? "Calculando..." : "Calcular taxa de entrega"}
             </button>
+            
 
             {entrega && (
               <div className="mt-5 space-y-3 rounded-2xl border border-brand-green/30 bg-brand-green/10 p-5">

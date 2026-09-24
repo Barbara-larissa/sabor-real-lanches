@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import {
@@ -12,14 +13,158 @@ interface AdminSidebarProps {
   onConfiguracoes?: () => void;
 }
 
+interface PedidoItem {
+  quantity?: number;
+  unit_price?: number;
+}
+
+interface Pedido {
+  status?: string;
+  createdAt?: string;
+  total?: number;
+  items?: PedidoItem[];
+}
+
 export default function AdminSidebar({
   onConfiguracoes,
 }: AdminSidebarProps) {
-  const lanchesDoDia = 128;
-  const lanchesDoMes = 3450;
+  // =====================================================
+  // CONTADORES
+  // =====================================================
 
-  const vendasDoDia = 4280;
-  const vendasDoMes = 32450;
+  const [lanchesDoDia, setLanchesDoDia] = useState(0);
+  const [lanchesDoMes, setLanchesDoMes] = useState(0);
+  const [vendasDoDia, setVendasDoDia] = useState(0);
+  const [vendasDoMes, setVendasDoMes] = useState(0);
+
+  // =====================================================
+  // CARREGAR CONTADORES DOS PEDIDOS
+  // =====================================================
+
+  useEffect(() => {
+    const carregarContadores = async () => {
+      try {
+        const response = await fetch(
+          "https://sabor-real-lanches.onrender.com/pedidos"
+        );
+
+        if (!response.ok) {
+          throw new Error("Erro ao buscar pedidos.");
+        }
+
+        const pedidos: Pedido[] = await response.json();
+
+        // Somente pagamentos aprovados
+        const pedidosAprovados = pedidos.filter(
+          (pedido) => pedido.status === "approved"
+        );
+
+        const agora = new Date();
+
+        const inicioDoDia = new Date(
+          agora.getFullYear(),
+          agora.getMonth(),
+          agora.getDate()
+        );
+
+        const inicioDoMes = new Date(
+          agora.getFullYear(),
+          agora.getMonth(),
+          1
+        );
+
+        let quantidadeDia = 0;
+        let quantidadeMes = 0;
+
+        let valorDia = 0;
+        let valorMes = 0;
+
+        pedidosAprovados.forEach((pedido) => {
+          /*
+           * Caso o pedido não tenha createdAt,
+           * usamos o momento atual como fallback.
+           */
+          const dataPedido = new Date(
+            pedido.createdAt || agora.toISOString()
+          );
+
+          if (Number.isNaN(dataPedido.getTime())) {
+            return;
+          }
+
+          const itens = Array.isArray(pedido.items)
+            ? pedido.items
+            : [];
+
+          // Quantidade total de lanches desse pedido
+          const quantidadeLanches = itens.reduce(
+            (total, item) =>
+              total + Number(item.quantity || 1),
+            0
+          );
+
+          // Soma dos produtos
+          const valorCalculado = itens.reduce(
+            (total, item) =>
+              total +
+              Number(item.unit_price || 0) *
+                Number(item.quantity || 1),
+            0
+          );
+
+          /*
+           * Se o backend enviar o total do pedido,
+           * usamos ele.
+           * Caso contrário, usamos a soma dos itens.
+           */
+          const valorPedido =
+            pedido.total !== undefined &&
+            !Number.isNaN(Number(pedido.total))
+              ? Number(pedido.total)
+              : valorCalculado;
+
+          // =================================================
+          // HOJE
+          // =================================================
+
+          if (dataPedido >= inicioDoDia) {
+            quantidadeDia += quantidadeLanches;
+            valorDia += valorPedido;
+          }
+
+          // =================================================
+          // ESTE MÊS
+          // =================================================
+
+          if (dataPedido >= inicioDoMes) {
+            quantidadeMes += quantidadeLanches;
+            valorMes += valorPedido;
+          }
+        });
+
+        setLanchesDoDia(quantidadeDia);
+        setLanchesDoMes(quantidadeMes);
+        setVendasDoDia(valorDia);
+        setVendasDoMes(valorMes);
+      } catch (error) {
+        console.error(
+          "Erro ao carregar contadores:",
+          error
+        );
+      }
+    };
+
+    // Carrega imediatamente
+    carregarContadores();
+
+    // Atualiza a cada 5 segundos
+    const intervalo = setInterval(
+      carregarContadores,
+      5000
+    );
+
+    return () => clearInterval(intervalo);
+  }, []);
 
   return (
     <aside className="w-full md:w-72 md:h-screen md:sticky md:top-0 md:self-start md:shrink-0 bg-[#111111] border-r border-[#D4AF37]/20 flex flex-col transition-all duration-300">
@@ -84,11 +229,11 @@ export default function AdminSidebar({
 
         {/* CONFIGURAÇÕES */}
 
-        <button
-          type="button"
-          onClick={() => onConfiguracoes?.()}
-          className="w-full flex items-center justify-center md:justify-start gap-3 rounded-lg px-3 md:px-4 py-3 text-gray-200 hover:bg-[#D4AF37] hover:text-black transition-all duration-200 group"
-        >
+       <button
+  type="button"
+  onClick={() => onConfiguracoes?.()}
+  className="w-full flex items-center justify-center md:justify-start gap-3 rounded-lg px-3 md:px-4 py-3 text-gray-200 hover:bg-[#D4AF37] hover:text-black transition-all duration-200 group cursor-pointer"
+>
           <Settings
             size={24}
             className="shrink-0"
@@ -98,7 +243,6 @@ export default function AdminSidebar({
             Configurações
           </span>
         </button>
-
       </nav>
 
       {/* =====================================================

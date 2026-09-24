@@ -41,19 +41,19 @@ interface ProdutoAdmin {
 
 
 type DiaSemana =
-  | "Segunda-feira"
-  | "Terça-feira"
-  | "Quarta-feira"
-  | "Quinta-feira"
-  | "Sexta-feira"
-  | "Sábado"
-  | "Domingo";
+    | "Segunda-feira"
+    | "Terça-feira"
+    | "Quarta-feira"
+    | "Quinta-feira"
+    | "Sexta-feira"
+    | "Sábado"
+    | "Domingo";
 
 interface PromocaoSemanal {
-  dia: DiaSemana;
-  produtoNome: string;
-  preco: number;
-  ativa: boolean;
+    dia: DiaSemana;
+    produtoNome: string;
+    preco: number;
+    ativa: boolean;
 }
 
 
@@ -251,54 +251,18 @@ export default function CardapioConfig() {
 
 
 
-const [promocoesSemanais, setPromocoesSemanais] =
-  useState<PromocaoSemanal[]>(
-    diasSemana.map((dia) => ({
-      dia,
-      produtoNome: "",
-      preco: 0,
-      ativa: false,
-    }))
-  );
+    const [promocoesSemanais, setPromocoesSemanais] =
+        useState<PromocaoSemanal[]>(
+            diasSemana.map((dia) => ({
+                dia,
+                produtoNome: "",
+                preco: 0,
+                ativa: false,
+            }))
+        );
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     /* =========================================================
        SALVAR LOCAL
        ========================================================= */
@@ -1424,7 +1388,7 @@ const [promocoesSemanais, setPromocoesSemanais] =
 
                     ) : (
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
 
                             {produtos.map(
                                 (produto) => {
@@ -1534,9 +1498,9 @@ const [promocoesSemanais, setPromocoesSemanais] =
                                                             produto.id
                                                         )
                                                     }
-                                                    className={`p-2.5 rounded-xl transition ${produto.disponivel
-                                                            ? "bg-green-500/10 text-green-400 hover:bg-green-500/20"
-                                                            : "bg-red-500/10 text-red-400 hover:bg-red-500/20"
+                                                    className={`p-2.5 rounded-xl transition cursor-pointer ${produto.disponivel
+                                                        ? "bg-green-500/10 text-green-400 hover:bg-green-500/20"
+                                                        : "bg-red-500/10 text-red-400 hover:bg-red-500/20"
                                                         }`}
                                                     title={
                                                         produto.disponivel
@@ -1610,9 +1574,9 @@ const [promocoesSemanais, setPromocoesSemanais] =
                                                         produto.id
                                                     )
                                                 }
-                                                className={`w-full mt-4 py-3 rounded-xl font-bold transition ${foiAlterado
-                                                        ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                                                        : "bg-[#D4AF37] hover:bg-[#e5c34b] text-black"
+                                                className={`w-full mt-4 py-3 rounded-xl font-bold transition cursor-pointer ${foiAlterado
+                                                    ? "bg-green-500/10 text-green-400 border border-green-500/20"
+                                                    : "bg-[#D4AF37] hover:bg-[#e5c34b] text-black"
                                                     }`}
                                             >
                                                 {foiAlterado
@@ -1629,8 +1593,7 @@ const [promocoesSemanais, setPromocoesSemanais] =
                                                         produto
                                                     )
                                                 }
-                                                className="w-full mt-3 flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white transition font-semibold"
-                                            >
+                                                className="w-full mt-3 flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white transition font-semibold cursor-pointer"                                            >
                                                 <Pencil
                                                     size={
                                                         18
@@ -1837,8 +1800,8 @@ const [promocoesSemanais, setPromocoesSemanais] =
                                         !produtoEditando.produtoNovo
                                     }
                                     className={`w-full h-12 border rounded-xl px-4 outline-none transition ${produtoEditando.produtoNovo
-                                            ? "bg-black border-gray-800 text-white focus:border-[#D4AF37]"
-                                            : "bg-[#0b0b0b] border-gray-800 text-gray-400 cursor-not-allowed"
+                                        ? "bg-black border-gray-800 text-white focus:border-[#D4AF37]"
+                                        : "bg-[#0b0b0b] border-gray-800 text-gray-400 cursor-not-allowed"
                                         }`}
                                 />
 
@@ -1980,14 +1943,14 @@ const [promocoesSemanais, setPromocoesSemanais] =
                                             )
                                         }
                                         className={`relative w-12 h-7 rounded-full transition ${produtoEditando.disponivel
-                                                ? "bg-green-500"
-                                                : "bg-gray-700"
+                                            ? "bg-green-500"
+                                            : "bg-gray-700"
                                             }`}
                                     >
                                         <span
                                             className={`absolute top-1 w-5 h-5 bg-white rounded-full transition ${produtoEditando.disponivel
-                                                    ? "left-6"
-                                                    : "left-1"
+                                                ? "left-6"
+                                                : "left-1"
                                                 }`}
                                         />
                                     </button>
@@ -2023,14 +1986,14 @@ const [promocoesSemanais, setPromocoesSemanais] =
                                             )
                                         }
                                         className={`relative w-12 h-7 rounded-full transition ${produtoEditando.promocaoDoDia
-                                                ? "bg-[#D4AF37]"
-                                                : "bg-gray-700"
+                                            ? "bg-[#D4AF37]"
+                                            : "bg-gray-700"
                                             }`}
                                     >
                                         <span
                                             className={`absolute top-1 w-5 h-5 bg-white rounded-full transition ${produtoEditando.promocaoDoDia
-                                                    ? "left-6"
-                                                    : "left-1"
+                                                ? "left-6"
+                                                : "left-1"
                                                 }`}
                                         />
                                     </button>
@@ -2091,68 +2054,68 @@ const [promocoesSemanais, setPromocoesSemanais] =
 
                                         <div className="mt-4">
 
-                                        <label className="block text-sm text-gray-400 mb-2">
-                                            Preço promocional
-                                        </label>
+                                            <label className="block text-sm text-gray-400 mb-2">
+                                                Preço promocional
+                                            </label>
 
-                                        <div className="flex">
+                                            <div className="flex">
 
-                                            <span className="h-12 px-4 flex items-center bg-black border border-gray-800 border-r-0 rounded-l-xl text-gray-400">
-                                                R$
-                                            </span>
+                                                <span className="h-12 px-4 flex items-center bg-black border border-gray-800 border-r-0 rounded-l-xl text-gray-400">
+                                                    R$
+                                                </span>
 
-                                            <input
-                                                type="text"
-                                                inputMode="decimal"
-                                                value={precoPromocionalModal}
-                                                onChange={(e) => {
-                                                    let valor =
-                                                        e.target.value.replace(
-                                                            /[^\d,]/g,
-                                                            ""
-                                                        );
-
-                                                    const partes =
-                                                        valor.split(",");
-
-                                                    if (
-                                                        partes.length > 2
-                                                    ) {
-                                                        valor =
-                                                            partes[0] +
-                                                            "," +
-                                                            partes
-                                                                .slice(1)
-                                                                .join("");
-                                                    }
-
-                                                    if (partes[1]) {
-                                                        valor =
-                                                            partes[0] +
-                                                            "," +
-                                                            partes[1].slice(
-                                                                0,
-                                                                2
+                                                <input
+                                                    type="text"
+                                                    inputMode="decimal"
+                                                    value={precoPromocionalModal}
+                                                    onChange={(e) => {
+                                                        let valor =
+                                                            e.target.value.replace(
+                                                                /[^\d,]/g,
+                                                                ""
                                                             );
-                                                    }
 
-                                                    setPrecoPromocionalModal(
-                                                        valor
-                                                    );
-                                                }}
-                                                placeholder="0,00"
-                                                className="w-full h-12 bg-black border border-gray-800 rounded-r-xl px-4 text-white font-bold outline-none focus:border-[#D4AF37] transition"
-                                            />
+                                                        const partes =
+                                                            valor.split(",");
+
+                                                        if (
+                                                            partes.length > 2
+                                                        ) {
+                                                            valor =
+                                                                partes[0] +
+                                                                "," +
+                                                                partes
+                                                                    .slice(1)
+                                                                    .join("");
+                                                        }
+
+                                                        if (partes[1]) {
+                                                            valor =
+                                                                partes[0] +
+                                                                "," +
+                                                                partes[1].slice(
+                                                                    0,
+                                                                    2
+                                                                );
+                                                        }
+
+                                                        setPrecoPromocionalModal(
+                                                            valor
+                                                        );
+                                                    }}
+                                                    placeholder="0,00"
+                                                    className="w-full h-12 bg-black border border-gray-800 rounded-r-xl px-4 text-white font-bold outline-none focus:border-[#D4AF37] transition"
+                                                />
+
+                                            </div>
+
+                                            <p className="text-xs text-gray-500 mt-2">
+                                                Será aplicado somente no dia da promoção.
+                                            </p>
 
                                         </div>
 
-                                        <p className="text-xs text-gray-500 mt-2">
-                                            Será aplicado somente no dia da promoção.
-                                        </p>
-
                                     </div>
-
-                                </div>
 
                                 )}
 
