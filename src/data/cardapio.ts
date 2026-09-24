@@ -51,7 +51,7 @@ export const lanches: Lanche[] = [
     preco: "R$ 25,00",
     img: xSalada,
     desc:
-      "Pão,  hambúrguer,  queijo, 2 presunto, batata palha, tomate,  alface, ketchup, maionese.",
+      "Pão,  hambúrguer,  queijo,  presunto, batata palha, tomate,  alface, ketchup, maionese.",
     hover:
       "hover:border-brand-green/40",
   },

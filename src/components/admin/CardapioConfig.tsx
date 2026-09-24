@@ -105,7 +105,7 @@ const STORAGE_KEY =
     "sabor-real-cardapio";
 
 const API_URL =
-    "http://localhost:3001";
+ "https://sabor-real-lanches.onrender.com";
 
 const diasSemana: DiaSemana[] = [
     "Segunda-feira",
@@ -150,6 +150,7 @@ const converterPreco = (
     const normalizado =
         valorLimpo
             .replace(/\./g, "")
+            
             .replace(",", ".");
 
     const numero =

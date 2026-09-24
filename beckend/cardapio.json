@@ -51,7 +51,10 @@
   },
   "Dog Duplo": {
     "preco": 15,
-    "disponivel": true
+    "disponivel": true,
+    "precoPromocional": 10,
+    "promocaoDoDia": true,
+    "diaPromocao": "Quinta-feira"
   },
   "Dog Presunto e Queijo": {
     "preco": 18,
